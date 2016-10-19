@@ -1,0 +1,12 @@
+.item {
+  cursor: pointer;
+  color: #000;
+}
+
+.itemHover:hover {
+  color: #999;
+}
+
+.navItem {
+  composes: item itemHover;
+}

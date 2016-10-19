@@ -1,0 +1,28 @@
+.itemCreator {
+  font-family: inherit;
+  font-size: 32px;
+  font-weight: bold;
+  border: 0px;
+  resize: none;
+  outline: none;
+  width: 90%;
+  min-height: 43px;
+}
+
+.cButton {
+  margin-left: 8px;
+  margin-top: 5px;
+  color: #1c7;
+}
+
+.cButtonHover:hover {
+  color: #60DEA5;
+}
+
+.checkButton {
+  composes: cButton cButtonHover;
+}
+
+.pointerCursor {
+  cursor: pointer;
+}

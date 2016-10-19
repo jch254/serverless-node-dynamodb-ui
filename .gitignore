@@ -1,0 +1,11 @@
+.DS_Store
+node_modules/
+bower_components/
+dist/js/
+*.d.ts
+.vscode/
+typings.json
+npm-debug.log
+.terraform
+*.tfstate
+*.tfstate.backup

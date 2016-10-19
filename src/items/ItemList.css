@@ -1,0 +1,13 @@
+.item {
+  cursor: pointer;
+  word-break: break-all;
+  color: #000;
+}
+
+.itemHover:hover {
+  color: #999;
+}
+
+.listItem {
+  composes: item itemHover;
+}
