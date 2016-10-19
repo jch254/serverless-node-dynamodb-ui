@@ -1,6 +1,8 @@
-# React-redux-terraform-aws
+# [React-redux-terraform-aws (Live Demo)](https://serverless-web-api.603.nu)
 
-A simple React/Redux-powered UI to front a simple [Serverless web API](https://github.com/jch254/serverless-es6-dynamodb-webapi). Written with a functional mindset - this project uses Immutable.js and Reselect for efficient client-side data manipulation.
+[Bitbucket Pipelines status](https://bitbucket.org/jch254/react-redux-terraform-aws/addon/pipelines/home)
+
+A simple React/Redux-powered UI to front a simple [Serverless web API](https://github.com/jch254/serverless-es6-dynamodb-webapi). This project is written with a functional mindset with help from Immutable.js and Reselect for efficient client-side data manipulation.
 
 This project is deployed to AWS on S3, CloudFront is used as a CDN and Route 53 is used for DNS. All infrastructure is defined as code in the [/infrastructure](../master/infrastructure) directory. Manual steps suck so this project uses Bitbucket Pipelines to automate the build and deployment to AWS - see [bitbucket-pipelines.yml](../master/bitbucket-pipelines.yml). AWS credentials are set in this file to take advantage of [Bitbucket Pipelines environment variables](https://confluence.atlassian.com/bitbucket/environment-variables-in-bitbucket-pipelines-794502608.html).
 
