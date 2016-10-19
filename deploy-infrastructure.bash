@@ -9,5 +9,5 @@ terraform remote config -backend=s3 \
   -backend-config="encrypt=true"
 
 terraform plan -var-file react-redux-terraform-aws.tfvars
-terraform apply -var-file preact-redux-terraform-aws.tfvars
+terraform apply -var-file react-redux-terraform-aws.tfvars
 cd ..
