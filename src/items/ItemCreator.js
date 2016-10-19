@@ -13,7 +13,6 @@ import { getNewItemName } from './selectors';
 import styles from './ItemCreator.css';
 
 const ItemCreator = ({ itemName, actions }, context) => (
-
   <Flex mt={1} align="center">
     <Textarea
       rows="1"
@@ -21,7 +20,12 @@ const ItemCreator = ({ itemName, actions }, context) => (
       value={itemName}
       placeholder="Enter a name, then click the button..."
       onChange={event => actions.updateNewItemName(event.target.value)}
-      autoFocus
+      onKeyPress={(event) => {
+        if (event.key === 'Enter') {
+          actions.createItem({ name: itemName });
+          context.router.push('/items');
+        }
+      }}
     />
     <Space auto />
     <div
