@@ -10,7 +10,7 @@ import {
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import { fetchItems } from './reducer';
-import { getIsFetching, getItems, getError } from './selectors';
+import { getIsFetching, getSortedItems, getError } from './selectors';
 import ItemsList from './ItemsList';
 import FullscreenLoader from '../shared-components/FullscreenLoader';
 
@@ -37,7 +37,7 @@ ItemsPage.propTypes = {
 const mapStateToProps = state => (
   {
     isFetching: getIsFetching(state),
-    items: getItems(state),
+    items: getSortedItems(state),
     error: getError(state),
   }
 );
