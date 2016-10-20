@@ -17,7 +17,7 @@ const ItemsList = ({ items, actions }) => {
   const displayableItems = items
     .entrySeq()
     .map(([id, item]) =>
-      <Flex key={id} align="center">
+      <Flex key={id}>
         <Heading
           level={2}
           onClick={() => actions.deleteItem(id)}
@@ -26,8 +26,8 @@ const ItemsList = ({ items, actions }) => {
           {item.get('name')}
         </Heading>
         <Space auto />
-        <Text ml={2} color="#999">
-          {item.get('createdUtc').format('hhmm MMM Do YYYY')}
+        <Text color="#999">
+          {item.get('createdUtc').format('hh:mm MMM DD YYYY')}
         </Text>
       </Flex>
   );
@@ -35,6 +35,13 @@ const ItemsList = ({ items, actions }) => {
   return (
     <div>
       {displayableItems}
+      <Flex>
+        <Space auto />
+        <Text mt={2} color="#999">
+          All times UTC (+0000)
+        </Text>
+      </Flex>
+
     </div>
   );
 };
