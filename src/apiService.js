@@ -1,5 +1,5 @@
 import 'isomorphic-fetch';
-import Immutable, { Map } from 'immutable';
+import { Map } from 'immutable';
 import { put } from 'redux-saga/effects';
 
 import { Item } from './items';
@@ -46,12 +46,8 @@ export async function createItem(item) {
 export async function deleteItem(itemId) {
   const response = await fetch(`${process.env.API_BASE_URI}/items/${itemId}`, getFetchInit('DELETE'));
 
-  try {
-    const json = await response.json();
-
-    return { item: Immutable.fromJS(json) };
-  } catch (err) {
-    throw new Error(`${response.statusText} (${response.status}) error occurred downstream: ${err.message}`);
+  if (response.status !== 200) {
+    throw new Error(`${response.statusText} (${response.status}) error occurred downstream`);
   }
 }
 
