@@ -38,8 +38,8 @@ const ItemCreator = ({ itemName, actions }, context) => (
     >
       <Icon
         name="check"
-        width="32px"
-        height="32px"
+        width="24px"
+        height="24px"
         fill={itemName !== '' ? 'currentColor' : '#999'}
         className={classNames(
           styles.checkButton,

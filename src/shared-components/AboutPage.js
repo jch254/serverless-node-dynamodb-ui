@@ -15,7 +15,7 @@ const AboutPage = () => (
       <Heading mt={1} size={1} big>
         About
       </Heading>
-      <Heading mt={1} level={4} big>
+      <Heading mt={1} level={2}>
         Coming soon g.
       </Heading>
     </Container>

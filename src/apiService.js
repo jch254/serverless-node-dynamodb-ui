@@ -37,7 +37,7 @@ export async function createItem(item) {
   try {
     const json = await response.json();
 
-    return { item: Immutable.fromJS(json) };
+    return { item: new Item(json) };
   } catch (err) {
     throw new Error(`${response.statusText} (${response.status}) error occurred downstream: ${err.message}`);
   }

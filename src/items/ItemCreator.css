@@ -1,12 +1,11 @@
 .itemCreator {
   font-family: inherit;
-  font-size: 32px;
+  font-size: 24px;
   font-weight: bold;
   border: 0px;
   resize: none;
   outline: none;
   width: 90%;
-  min-height: 43px;
 }
 
 .cButton {

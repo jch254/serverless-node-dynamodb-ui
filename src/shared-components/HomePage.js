@@ -13,7 +13,7 @@ const HomePage = () => (
       <Heading level={1} big>
         Serverless Web API
       </Heading>
-      <Heading mt={1} level={4} big>
+      <Heading mt={1} level={2}>
         A simple web API powered by Serverless (Node.js), Webpack and DynamoDB, intended as a starting point for
         Serverless web APIs.
       </Heading>

@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import {
   Heading,
   Text,
+  Space,
 } from 'rebass';
 import { Flex } from 'reflexbox';
 import ImmutablePropTypes from 'react-immutable-proptypes';
@@ -18,15 +19,15 @@ const ItemsList = ({ items, actions }) => {
     .map(([id, item]) =>
       <Flex key={id} align="center">
         <Heading
-          level={4}
-          big
+          level={2}
           onClick={() => actions.deleteItem(id)}
           _className={styles.listItem}
         >
           {item.get('name')}
         </Heading>
+        <Space auto />
         <Text ml={2} color="#999">
-          {item.get('createdUtc').format('MMM DD YYYY')}
+          {item.get('createdUtc').format('hhmm MMM Do YYYY')}
         </Text>
       </Flex>
   );
