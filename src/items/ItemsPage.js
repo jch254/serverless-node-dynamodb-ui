@@ -19,7 +19,7 @@ const ItemsPage = ({ isFetching, items }) => (
     <FullscreenLoader /> :
       <Flex style={{ flex: '1 0 auto' }}>
         <Container style={{ width: '100%' }} pt={3} pb={3}>
-          <Heading my={2} level={2} big>
+          <Heading mb={2} level={2} big>
             Items/Tings
           </Heading>
           <ItemsList items={items} />

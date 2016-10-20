@@ -19,7 +19,7 @@ const AboutPage = () => (
       </Heading>
       <Heading mt={2} level={2}>
         The API is deployed to AWS with Serverless Framework. The UI is deployed to AWS on S3, CloudFront is used
-        as a CDN and Route 53 is used for DNS - all 3infrastructure is defined as code with Terraform.
+        as a CDN and Route 53 is used for DNS - all infrastructure is defined as code with Terraform.
       </Heading>
       <Heading mt={2} level={2}>
         Manual steps suck so both projects use Bitbucket Pipelines to automate the build and deployment to AWS.
