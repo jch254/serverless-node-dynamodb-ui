@@ -10,7 +10,7 @@ import ItemCreator from '../items/ItemCreator';
 const HomePage = () => (
   <Flex style={{ flex: '1 0 auto' }} >
     <Container style={{ width: '100%' }} pt={3} pb={3}>
-      <Heading level={1} big>
+      <Heading level={2} big>
         Serverless Web API
       </Heading>
       <Heading mt={1} level={2}>
