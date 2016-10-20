@@ -13,7 +13,7 @@ import { getNewItemName } from './selectors';
 import styles from './ItemCreator.css';
 
 const ItemCreator = ({ itemName, actions }, context) => (
-  <Flex mt={1} align="center">
+  <Flex mt={2}>
     <Textarea
       rows="1"
       className={styles.itemCreator}

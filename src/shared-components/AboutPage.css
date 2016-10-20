@@ -1,0 +1,11 @@
+.link {
+  color: #000;
+}
+
+.linkHover:hover {
+  color: #999;
+}
+
+.hoverLink {
+  composes: link linkHover;
+}
