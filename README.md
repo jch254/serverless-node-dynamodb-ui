@@ -18,25 +18,25 @@ This project is deployed to AWS on S3, CloudFront is used as a CDN and Route 53 
 
 --
 
-**API_BASE_URI environment variable must be set before `npm run` commands below.**
+**API_BASE_URI environment variable must be set before `yarn run` commands below.**
 
-E.g. `API_BASE_URI="https://serverless-web-api.amazon.com" npm run dev`
+E.g. `API_BASE_URI="https://serverless-web-api.amazon.com" yarn run dev`
 
 ### Running locally (with live re-loading)
 
 1. Run the following commands in the app's root directory then open http://localhost:3001
 
 ```
-npm install
-npm run dev
+yarn install
+yarn run dev
 ```
 
 ### Building the production version
 1. Run the following commands in the app's root directory then check the /dist folder
 
 ```
-npm install
-npm run build
+yarn install
+yarn run build
 ```
 
 ### Deployment/Infrastructure
