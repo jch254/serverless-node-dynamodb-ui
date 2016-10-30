@@ -1,5 +1,4 @@
-export TF_VAR_route53_zone_id=$ROUTE53_ZONE_ID
-export TF_VAR_acm_arn=$ACM_ARN
+#!/bin/bash -ex
 
 cd infrastructure
 terraform remote config -backend=s3 \

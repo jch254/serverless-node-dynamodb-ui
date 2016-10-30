@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import 'react-router-scroll/lib/useScroll';
+import ga from 'react-ga';
 
 import configureStore from './configureStore';
 import routes from './routes';
@@ -12,11 +13,22 @@ import routes from './routes';
 const store = configureStore(browserHistory);
 const history = syncHistoryWithStore(browserHistory, store);
 
+if (process.env.NODE_ENV === 'production') {
+  ga.initialize(process.env.GA_ID);
+}
+
+const logPageView = () => {
+  if (process.env.NODE_ENV === 'production') {
+    ga.pageview(window.location.pathname);
+  }
+};
+
 ReactDOM.render(
   <Provider store={store}>
     <Router
       history={history}
       routes={routes}
+      onUpdate={logPageView}
     />
   </Provider>,
   document.getElementById('root')

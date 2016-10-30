@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/jch254/react-redux-terraform-aws"
   },
   "author": "Jordan Hornblow <jordan@jch254.com>",
   "dependencies": {
