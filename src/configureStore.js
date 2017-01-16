@@ -13,7 +13,7 @@ const reducer = combineReducers(
   {
     items: itemsReducer,
     routing: routerReducer,
-  }
+  },
 );
 
 export default function configureStore(browserHistory, initialState) {
@@ -24,17 +24,17 @@ export default function configureStore(browserHistory, initialState) {
     // Log Immutable state beautifully
     const logger = createLogger({
       stateTransformer: (state) => {
-        const newState = {};
+        const beautifulState = {};
 
-        for (const i of Object.keys(state)) {
-          if (Iterable.isIterable(state[i])) {
-            newState[i] = state[i].toJS();
+        Object.keys(state).forEach((key) => {
+          if (Iterable.isIterable(state[key])) {
+            beautifulState[key] = state[key].toJS();
           } else {
-            newState[i] = state[i];
+            beautifulState[key] = state[key];
           }
-        }
+        });
 
-        return newState;
+        return beautifulState;
       },
     });
 
@@ -49,7 +49,7 @@ export default function configureStore(browserHistory, initialState) {
     compose(
       applyMiddleware(...middlewares),
       window.devToolsExtension &&
-      process.env.NODE_ENV !== 'production' ? window.devToolsExtension() : f => f
+      process.env.NODE_ENV !== 'production' ? window.devToolsExtension() : f => f,
   ));
 
   sagaMiddleware.run(rootSaga);

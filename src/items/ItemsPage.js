@@ -17,14 +17,14 @@ import FullscreenLoader from '../shared-components/FullscreenLoader';
 const ItemsPage = ({ isFetching, items }) => (
   isFetching ?
     <FullscreenLoader /> :
-      <Flex style={{ flex: '1 0 auto' }}>
-        <Container style={{ width: '100%' }} pt={3} pb={3}>
-          <Heading mb={2} level={2} big>
-            Items/Tings
-          </Heading>
-          <ItemsList items={items} />
-        </Container>
-      </Flex>
+    <Flex style={{ flex: '1 0 auto' }}>
+      <Container style={{ width: '100%' }} pt={3} pb={3}>
+        <Heading mb={2} level={2} big>
+          Items/Tings
+        </Heading>
+        <ItemsList items={items} />
+      </Container>
+    </Flex>
 );
 
 ItemsPage.componentDidMount = ({ actions }) => actions.fetchItems();

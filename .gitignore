@@ -1,7 +1,6 @@
 .DS_Store
 node_modules/
-bower_components/
-dist/js/
+dist/assets/
 *.d.ts
 .vscode/
 typings.json

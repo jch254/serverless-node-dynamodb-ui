@@ -29,7 +29,7 @@ const ItemsList = ({ items, actions }) => {
         <Text color="#999">
           {item.get('createdUtc').format('hh:mm MMM DD YYYY')}
         </Text>
-      </Flex>
+      </Flex>,
   );
 
   return (
