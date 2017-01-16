@@ -14,7 +14,7 @@ const AboutPage = () => (
         About
       </Heading>
       <Heading mt={2} level={2}>
-        This UI is built with React/Redux and sits in front of a web API powered by Serverless Framework (Node.js)
+        This UI is built with React/Redux and sits in front of an API powered by Serverless Framework (Node.js)
         and DynamoDB. I created these projects as a starting point for Serverless web apps.
       </Heading>
       <Heading mt={2} level={2}>
@@ -34,8 +34,7 @@ const AboutPage = () => (
       <Heading mt={3} level={1}>
         GitHub Repositories
       </Heading>
-      <Heading mt={1} level={2}>
-        -&nbsp;
+      <Heading mt={1} ml={1} level={2}>
         <a
           href="https://github.com/jch254/serverless-es6-dynamodb-webapi"
           className={styles.hoverLink}
@@ -45,8 +44,7 @@ const AboutPage = () => (
           serverless-es6-dynamodb-webapi
         </a>
       </Heading>
-      <Heading level={2}>
-        -&nbsp;
+      <Heading level={2} ml={1}>
         <a
           href="https://github.com/jch254/react-redux-terraform-aws"
           className={styles.hoverLink}
@@ -56,8 +54,7 @@ const AboutPage = () => (
           react-redux-terraform-aws
         </a>
       </Heading>
-      <Heading level={2}>
-        -&nbsp;
+      <Heading level={2} ml={1}>
         <a
           href="https://github.com/jch254/docker-node-serverless"
           className={styles.hoverLink}
@@ -67,8 +64,7 @@ const AboutPage = () => (
           docker-node-serverless
         </a>
       </Heading>
-      <Heading level={2}>
-        -&nbsp;
+      <Heading level={2} ml={1}>
         <a
           href="https://github.com/jch254/docker-node-terraform-aws"
           className={styles.hoverLink}

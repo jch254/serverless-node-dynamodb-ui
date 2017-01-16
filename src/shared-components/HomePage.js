@@ -19,12 +19,12 @@ const HomePage = () => (
           target="_blank"
           rel="noopener noreferrer"
         >
-          Serverless Web API
+          Serverless API
         </a>
       </Heading>
       <Heading mt={2} level={2}>
-        A simple web API powered by Serverless Framework (Node.js), Webpack and DynamoDB, intended as a
-        starting point for Serverless web APIs.
+        A simple API powered by Serverless Framework (Node.js), Webpack and DynamoDB, intended as a
+        starting point for Serverless APIs.
       </Heading>
       <ItemCreator />
     </Container>
