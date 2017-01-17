@@ -6,7 +6,7 @@ export default {
   entry: [
     'babel-polyfill',
     'webpack-hot-middleware/client?reload=true',
-    path.join(__dirname, 'src/index.js'),
+    path.join(__dirname, 'src', 'index.js'),
   ],
   output: {
     path: path.join(__dirname, 'dist', 'assets'),
