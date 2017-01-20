@@ -10,38 +10,30 @@ import { Flex } from 'reflexbox';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import { deleteItem } from './reducer';
-
 import styles from './ItemList.css';
 
-const ItemsList = ({ items, actions }) => {
+const ItemsList = ({ items, actions, idToken }) => {
   const displayableItems = items
     .entrySeq()
     .map(([id, item]) =>
       <Flex key={id}>
         <Heading
           level={2}
-          onClick={() => actions.deleteItem(id)}
+          onClick={() => actions.deleteItem(idToken, id)}
           _className={styles.listItem}
         >
           {item.get('name')}
         </Heading>
         <Space auto />
-        <Text color="#999">
-          {item.get('createdUtc').format('hh:mm MMM DD YYYY')}
+        <Text color="#999" style={{ minWidth: '200px', textAlign: 'right' }}>
+          {item.get('createdUtc').calendar()}
         </Text>
       </Flex>,
   );
 
   return (
-    <div>
+    <div style={{ marginTop: '16px' }}>
       {displayableItems}
-      <Flex>
-        <Space auto />
-        <Text mt={2} color="#999">
-          All times UTC (+0000)
-        </Text>
-      </Flex>
-
     </div>
   );
 };
@@ -49,6 +41,7 @@ const ItemsList = ({ items, actions }) => {
 ItemsList.propTypes = {
   items: ImmutablePropTypes.map.isRequired,
   actions: PropTypes.object.isRequired,
+  idToken: PropTypes.string.isRequired,
 };
 
 const mapDispatchToProps = dispatch => (

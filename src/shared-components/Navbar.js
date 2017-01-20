@@ -9,7 +9,7 @@ import Icon from 'react-geomicons';
 
 import styles from './Navbar.css';
 
-const Navbar = ({ currentPath }) => (
+const Navbar = ({ currentPath, isLoggedIn, onLogin, onLogout }) => (
   <Toolbar backgroundColor="white" mt={1} mb={2}>
     <Space auto />
     <NavItem is="object" color="midgray">
@@ -19,18 +19,6 @@ const Navbar = ({ currentPath }) => (
           width="32px"
           height="32px"
           fill={currentPath === '/' ? '#999' : 'currentColor'}
-          className={styles.navItem}
-        />
-      </Link>
-    </NavItem>
-    <Space auto />
-    <NavItem is="object" color="midgray">
-      <Link to="/items">
-        <Icon
-          name="list"
-          width="32px"
-          height="32px"
-          fill={currentPath === '/items' ? '#999' : 'currentColor'}
           className={styles.navItem}
         />
       </Link>
@@ -48,11 +36,38 @@ const Navbar = ({ currentPath }) => (
       </Link>
     </NavItem>
     <Space auto />
+    {
+      isLoggedIn &&
+      <NavItem is="object" color="midgray">
+        <Link to="/items">
+          <Icon
+            name="list"
+            width="32px"
+            height="32px"
+            fill={currentPath === '/items' ? '#999' : 'currentColor'}
+            className={styles.navItem}
+          />
+        </Link>
+      </NavItem>
+    }
+    { isLoggedIn && <Space auto /> }
+    <NavItem is="object" color="midgray" onClick={() => (isLoggedIn ? onLogout() : onLogin())}>
+      <Icon
+        name="user"
+        width="32px"
+        height="32px"
+        className={styles.navItem}
+      />
+    </NavItem>
+    <Space auto />
   </Toolbar>
 );
 
 Navbar.propTypes = {
   currentPath: PropTypes.string.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+  onLogin: PropTypes.func.isRequired,
+  onLogout: PropTypes.func.isRequired,
 };
 
 export default Navbar;

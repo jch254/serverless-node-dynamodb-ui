@@ -14,9 +14,9 @@ import {
 
 import { fetchItems, createItem, deleteItem, handleApiError } from '../apiService';
 
-export function* fetchItemsSaga() {
+export function* fetchItemsSaga(idToken) {
   try {
-    const { items } = yield call(fetchItems);
+    const { items } = yield call(fetchItems, idToken);
 
     yield put(fetchItemsSuccess(items));
   } catch (error) {
@@ -26,14 +26,14 @@ export function* fetchItemsSaga() {
 
 export function* watchFetchItems() {
   while (true) {
-    yield take(FETCH_ITEMS);
-    yield call(fetchItemsSaga);
+    const { idToken } = yield take(FETCH_ITEMS);
+    yield call(fetchItemsSaga, idToken);
   }
 }
 
-export function* createItemSaga(newItem) {
+export function* createItemSaga(idToken, newItem) {
   try {
-    const { item } = yield call(createItem, newItem);
+    const { item } = yield call(createItem, idToken, newItem);
 
     yield put(createItemSuccess(item));
   } catch (error) {
@@ -43,14 +43,14 @@ export function* createItemSaga(newItem) {
 
 export function* watchCreateItem() {
   while (true) {
-    const { newItem } = yield take(CREATE_ITEM);
-    yield call(createItemSaga, newItem);
+    const { idToken, newItem } = yield take(CREATE_ITEM);
+    yield call(createItemSaga, idToken, newItem);
   }
 }
 
-export function* deleteItemSaga(itemId) {
+export function* deleteItemSaga(idToken, itemId) {
   try {
-    yield call(deleteItem, itemId);
+    yield call(deleteItem, idToken, itemId);
   } catch (error) {
     yield call(handleApiError, error, apiServiceFailure);
   }
@@ -58,7 +58,7 @@ export function* deleteItemSaga(itemId) {
 
 export function* watchDeleteItem() {
   while (true) {
-    const { itemId } = yield take(DELETE_ITEM);
-    yield call(deleteItemSaga, itemId);
+    const { idToken, itemId } = yield take(DELETE_ITEM);
+    yield call(deleteItemSaga, idToken, itemId);
   }
 }

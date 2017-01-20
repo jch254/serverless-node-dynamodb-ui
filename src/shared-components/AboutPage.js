@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Heading,
   Container,
+  Text,
 } from 'rebass';
 import { Flex } from 'reflexbox';
 
@@ -13,48 +14,51 @@ const AboutPage = () => (
       <Heading level={2} big>
         About
       </Heading>
-      <Heading mt={2} level={2}>
-        This UI is built with React/Redux and sits in front of an API powered by Serverless Framework (Node.js)
-        and DynamoDB. I created these projects as a starting point for Serverless web apps.
-      </Heading>
-      <Heading mt={2} level={2}>
-        The API is deployed to AWS with Serverless Framework. The UI is deployed to AWS on S3, CloudFront is used
-        as a CDN and Route 53 is used for DNS - all infrastructure is defined as code with Terraform.
-      </Heading>
-      <Heading mt={2} level={2}>
+      <Text mt={2}>
+        A simple React/Redux-powered UI to front a simple Serverless API. This project is written with a functional
+        mindset aided by Immutable.js and Reselect for efficient client-side data manipulation. I created
+        these projects as a starting point for Serverless web apps.
+        <br />
+        <br />
+        Auth0 handles authentication. You must signup/login to generate an auth token and gain access to the
+        secured area. All endpoints in the API check validity of the auth token and return unauthorised
+        if invalid or expired, the UI then prompts you to log in again.
+        The API also determines the identity of the user via the auth token.
+        <br />
+        <br />
         Manual steps suck so both projects use Bitbucket Pipelines to automate the build and deployment to AWS.
         I&#39;ve also created Docker-powered build/deployment environments for both Serverless and AWS-hosted
         React/Redux projects to use with Bitbucket Pipelines.
-      </Heading>
-      <Heading mt={2} level={2}>
+        <br />
+        <br />
         I strive to build self-contained projects - everything required to develop, build, run, test and deploy is
         defined as code and lives in one repository. This is highly beneficial as each project has a single source of
         truth.
-      </Heading>
-      <Heading mt={3} level={1}>
+      </Text>
+      <Heading mt={3} level={2}>
         GitHub Repositories
       </Heading>
-      <Heading mt={1} ml={1} level={2}>
+      <Text mt={1}>
         <a
-          href="https://github.com/jch254/serverless-es6-dynamodb-webapi"
+          href="https://github.com/jch254/serverless-node-dynamodb-api"
           className={styles.hoverLink}
           target="_blank"
           rel="noopener noreferrer"
         >
-          serverless-es6-dynamodb-webapi
+          serverless-node-dynamodb-api
         </a>
-      </Heading>
-      <Heading level={2} ml={1}>
+      </Text>
+      <Text>
         <a
-          href="https://github.com/jch254/react-redux-terraform-aws"
+          href="https://github.com/jch254/serverless-node-dynamodb-ui"
           className={styles.hoverLink}
           target="_blank"
           rel="noopener noreferrer"
         >
-          react-redux-terraform-aws
+          serverless-node-dynamodb-ui
         </a>
-      </Heading>
-      <Heading level={2} ml={1}>
+      </Text>
+      <Text>
         <a
           href="https://github.com/jch254/docker-node-serverless"
           className={styles.hoverLink}
@@ -63,8 +67,8 @@ const AboutPage = () => (
         >
           docker-node-serverless
         </a>
-      </Heading>
-      <Heading level={2} ml={1}>
+      </Text>
+      <Text>
         <a
           href="https://github.com/jch254/docker-node-terraform-aws"
           className={styles.hoverLink}
@@ -73,7 +77,7 @@ const AboutPage = () => (
         >
           docker-node-terraform-aws
         </a>
-      </Heading>
+      </Text>
     </Container>
   </Flex>
 );

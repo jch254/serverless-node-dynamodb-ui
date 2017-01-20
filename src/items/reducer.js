@@ -48,9 +48,10 @@ export default function reducer(state = initialState, action) {
   }
 }
 
-export const fetchItems = () => (
+export const fetchItems = idToken => (
   {
     type: FETCH_ITEMS,
+    idToken,
   }
 );
 
@@ -68,9 +69,10 @@ export const updateNewItemName = newItemName => (
   }
 );
 
-export const createItem = newItem => (
+export const createItem = (idToken, newItem) => (
   {
     type: CREATE_ITEM,
+    idToken,
     newItem,
   }
 );
@@ -82,9 +84,10 @@ export const createItemSuccess = item => (
   }
 );
 
-export const deleteItem = itemId => (
+export const deleteItem = (idToken, itemId) => (
   {
     type: DELETE_ITEM,
+    idToken,
     itemId,
   }
 );

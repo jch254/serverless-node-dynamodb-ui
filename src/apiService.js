@@ -3,9 +3,12 @@ import { Map } from 'immutable';
 import { put } from 'redux-saga/effects';
 
 import { Item } from './items';
+import { actions as authActions } from './auth';
 
-const getFetchInit = (requestMethod, body) => {
+const getFetchInit = (idToken, requestMethod, body) => {
   const requestHeaders = new Headers();
+
+  requestHeaders.append('Authorization', `Bearer ${idToken}`);
   requestHeaders.append('Content-Type', 'application/json');
 
   const fetchInit = { method: requestMethod, headers: requestHeaders };
@@ -17,37 +20,60 @@ const getFetchInit = (requestMethod, body) => {
   return fetchInit;
 };
 
+
 const mapItemToKeyValuePair = item => [item.id, new Item(item)];
 
-export async function fetchItems() {
-  const response = await fetch(`${process.env.API_BASE_URI}/items`, getFetchInit('GET'));
+const handleErrorResponse = (response) => {
+  const err = new Error();
 
+  err.response = response;
+
+  throw err;
+};
+
+export async function fetchItems(idToken) {
   try {
-    const json = await response.json();
+    const response = await fetch(`${process.env.API_BASE_URI}/items`, getFetchInit(idToken, 'GET'));
 
-    return { items: new Map(json.items.map(mapItemToKeyValuePair)) };
+    if (response.ok) {
+      const json = await response.json();
+
+      return { items: new Map(json.items.map(mapItemToKeyValuePair)) };
+    }
+
+    return handleErrorResponse(response);
   } catch (err) {
-    throw new Error(`${response.statusText} (${response.status}) error occurred downstream: ${err.message}`);
+    throw err;
   }
 }
 
-export async function createItem(item) {
-  const response = await fetch(`${process.env.API_BASE_URI}/items`, getFetchInit('POST', item));
-
+export async function createItem(idToken, item) {
   try {
-    const json = await response.json();
+    const response = await fetch(`${process.env.API_BASE_URI}/items`, getFetchInit(idToken, 'POST', item));
 
-    return { item: new Item(json) };
+    if (response.status === 201) {
+      const json = await response.json();
+
+      return { item: new Item(json) };
+    }
+
+    return handleErrorResponse(response);
   } catch (err) {
-    throw new Error(`${response.statusText} (${response.status}) error occurred downstream: ${err.message}`);
+    throw err;
   }
 }
 
-export async function deleteItem(itemId) {
-  const response = await fetch(`${process.env.API_BASE_URI}/items/${itemId}`, getFetchInit('DELETE'));
+export async function deleteItem(idToken, itemId) {
+  try {
+    const response = await fetch(`${process.env.API_BASE_URI}/items/${itemId}`, getFetchInit(idToken, 'DELETE'));
 
-  if (response.status !== 200) {
-    throw new Error(`${response.statusText} (${response.status}) error occurred downstream`);
+    if (response.ok) {
+      return true;
+    }
+
+    return handleErrorResponse(response);
+  } catch (err) {
+    throw err;
   }
 }
 
@@ -55,14 +81,10 @@ export function* handleApiError(error, failureAction) {
   const response = error.response;
 
   if (response === undefined) {
-    yield put(failureAction(error.message));
+    yield put(failureAction('Oh damn! An error occurred, please contact the administrator.'));
+  } else if (response.status === 401) {
+    yield put(authActions.login());
   } else {
-    const responseError = {
-      status: response.status,
-      statusText: response.statusText,
-      message: error.message,
-    };
-
-    yield put(failureAction(responseError));
+    yield put(failureAction('Oh snap! An error occurred, please contact the administrator.'));
   }
 }

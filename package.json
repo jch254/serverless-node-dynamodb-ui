@@ -1,7 +1,7 @@
 {
-  "name": "React-redux-terraform-aws",
+  "name": "serverless-node-dynamodb-ui",
   "version": "1.0.0",
-  "description": "React-redux-terraform-aws",
+  "description": "UI in front of Serverless, Node and DynamoDB-powered API",
   "license": "MIT",
   "scripts": {
     "dev": "babel-node devServer.js",
@@ -10,10 +10,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jch254/react-redux-terraform-aws"
+    "url": "https://github.com/jch254/serverless-node-dynamodb-ui"
   },
   "author": "Jordan Hornblow <jordan@jch254.com>",
   "dependencies": {
+    "auth0-lock": "^10.9.2",
     "babel-polyfill": "^6.20.0",
     "classnames": "^2.2.5",
     "immutable": "^3.8.1",
@@ -29,13 +30,13 @@
     "react-immutable-proptypes": "^2.1.0",
     "react-loading": "0.0.9",
     "react-redux": "^5.0.2",
-    "react-router": "^3.0.1",
+    "react-router": "^3.0.2",
     "react-router-redux": "^4.0.7",
     "react-router-scroll": "^0.4.1",
     "rebass": "^0.3.3",
     "redux": "^3.6.0",
     "redux-logger": "^2.7.4",
-    "redux-saga": "^0.14.2",
+    "redux-saga": "^0.14.3",
     "reflexbox": "^2.2.3",
     "reselect": "^2.5.4"
   },

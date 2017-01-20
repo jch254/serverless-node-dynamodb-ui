@@ -9,21 +9,21 @@ import classNames from 'classnames';
 
 import { updateNewItemName, createItem } from './reducer';
 import { getNewItemName } from './selectors';
-
+import { selectors as authSelectors } from '../auth';
 import styles from './ItemCreator.css';
 
-const ItemCreator = ({ itemName, actions }, context) => (
+const ItemCreator = ({ itemName, actions, idToken }) => (
   <Flex mt={2}>
     <Textarea
       rows="1"
       className={styles.itemCreator}
       value={itemName}
-      placeholder="Enter a name, then click the button..."
+      placeholder="Enter an item name..."
       onChange={event => actions.updateNewItemName(event.target.value)}
       onKeyPress={(event) => {
         if (event.key === 'Enter') {
-          actions.createItem({ name: itemName });
-          context.router.push('/items');
+          event.preventDefault();
+          actions.createItem(idToken, { name: itemName });
         }
       }}
     />
@@ -31,8 +31,7 @@ const ItemCreator = ({ itemName, actions }, context) => (
     <div
       onClick={() => {
         if (itemName !== '') {
-          actions.createItem({ name: itemName });
-          context.router.push('/items');
+          actions.createItem(idToken, { name: itemName });
         }
       }}
     >
@@ -53,15 +52,13 @@ const ItemCreator = ({ itemName, actions }, context) => (
 ItemCreator.propTypes = {
   itemName: PropTypes.string.isRequired,
   actions: PropTypes.object.isRequired,
-};
-
-ItemCreator.contextTypes = {
-  router: PropTypes.object.isRequired,
+  idToken: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => (
   {
     itemName: getNewItemName(state),
+    idToken: authSelectors.getIdToken(state),
   }
 );
 

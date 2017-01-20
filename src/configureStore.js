@@ -5,12 +5,13 @@ import { routerMiddleware, routerReducer } from 'react-router-redux';
 import Perf from 'react-addons-perf';
 import { Iterable } from 'immutable';
 
+import { reducer as authReducer } from './auth';
 import { reducer as itemsReducer } from './items';
-
 import rootSaga from './rootSaga';
 
 const reducer = combineReducers(
   {
+    auth: authReducer,
     items: itemsReducer,
     routing: routerReducer,
   },
