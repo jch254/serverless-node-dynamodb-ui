@@ -63,9 +63,6 @@ resource "aws_cloudfront_distribution" "cdn" {
     min_ttl = 0
     default_ttl = 3600
     max_ttl = 86400
-    lambda_function_associations {
-      quantity = 0
-    }
   }
   viewer_certificate {
     acm_certificate_arn = "${var.acm_arn}"
