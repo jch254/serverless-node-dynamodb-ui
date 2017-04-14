@@ -6,7 +6,7 @@ A simple React/Redux-powered UI to front a simple [Serverless API](https://githu
 
 Auth0 handles authentication. You must signup/login to generate an auth token and gain access to the secured area. All endpoints in the API check validity of the auth token and return unauthorised if invalid, the UI then prompts you to log in again. The API also determines the identity of the user via the auth token.
 
-This project is deployed to AWS on S3, CloudFront is used as a CDN and Route 53 is used for DNS. All infrastructure is defined as code in the [/infrastructure](../master/infrastructure) directory. Manual steps suck so this project uses Bitbucket Pipelines to automate the build and deployment to AWS - see [bitbucket-pipelines.yml](../master/bitbucket-pipelines.yml). AWS credentials are set using [Bitbucket Pipelines environment variables](https://confluence.atlassian.com/bitbucket/environment-variables-in-bitbucket-pipelines-794502608.html).
+This project is deployed to AWS on S3, CloudFront is used as a CDN and Route 53 is used for DNS. All infrastructure is defined as code in the [/infrastructure](infrastructure) directory. Manual steps suck so this project uses Bitbucket Pipelines to automate the build and deployment to AWS - see [bitbucket-pipelines.yml](bitbucket-pipelines.yml). AWS credentials are set using [Bitbucket Pipelines environment variables](https://confluence.atlassian.com/bitbucket/environment-variables-in-bitbucket-pipelines-794502608.html).
 
 ### Main technologies used
 
@@ -15,6 +15,7 @@ This project is deployed to AWS on S3, CloudFront is used as a CDN and Route 53 
 * [Redux-saga](https://github.com/yelouafi/redux-saga/)
 * [Auth0 Lock](https://github.com/auth0/lock)
 * [Immutable.js](https://github.com/facebook/immutable-js/)
+* [React Router](https://github.com/ReactTraining/react-router)
 * [Reselect](https://github.com/jxnblk/rebass)
 * [Webpack](https://github.com/webpack/webpack)
 * [Node.js](https://github.com/nodejs/node)
@@ -42,6 +43,15 @@ yarn install
 yarn run build
 ```
 
+### Running production version locally
+
+1. Run the following commands in the app's root directory then open http://localhost:3001
+
+```
+yarn install
+yarn run prod
+```
+
 ### Deployment/Infrastructure
 
-Refer to the [/infrastructure](../master/infrastructure) directory.
+Refer to the [/infrastructure](infrastructure) directory.

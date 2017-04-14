@@ -1,13 +1,14 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Flex } from 'reflexbox';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 import {
   Heading,
   Text,
   Space,
 } from 'rebass';
-import { Flex } from 'reflexbox';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 
 import { deleteItem } from './reducer';
 import styles from './ItemList.css';

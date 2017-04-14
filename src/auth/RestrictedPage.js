@@ -1,27 +1,42 @@
-import React, { PropTypes } from 'react';
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import functional from 'react-functional';
+
+import FullscreenLoader from '../shared-components/FullscreenLoader';
 
 import { login } from './reducer';
-import { getIsLoggedIn } from './selectors';
+import { getIdToken } from './selectors';
 
-const RestrictedPage = ({ children, isLoggedIn }) => (isLoggedIn ? children : <div />);
+class RestrictedPage extends PureComponent {
+  componentWillMount() {
+    const { actions, idToken } = this.props;
+
+    if (!idToken) {
+      actions.login();
+    }
+  }
+
+  render() {
+    const { children, idToken } = this.props;
+
+    return idToken ? children : <FullscreenLoader delay={0} />;
+  }
+}
 
 RestrictedPage.propTypes = {
+  actions: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
+  idToken: PropTypes.string,
 };
 
-RestrictedPage.componentWillMount = ({ actions, isLoggedIn }) => {
-  if (!isLoggedIn) {
-    actions.login();
-  }
+RestrictedPage.defaultProps = {
+  idToken: null,
 };
 
 const mapStateToProps = state => (
   {
-    isLoggedIn: getIsLoggedIn(state),
+    idToken: getIdToken(state),
   }
 );
 
@@ -31,4 +46,4 @@ const mapDispatchToProps = dispatch => (
   }
 );
 
-export default connect(mapStateToProps, mapDispatchToProps)(functional(RestrictedPage));
+export default connect(mapStateToProps, mapDispatchToProps)(RestrictedPage);

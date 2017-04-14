@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import {
   NavItem,
   Toolbar,
@@ -9,49 +10,46 @@ import Icon from 'react-geomicons';
 
 import styles from './Navbar.css';
 
-const Navbar = ({ currentPath, isLoggedIn, onLogin, onLogout }) => (
+const Navbar = ({ isLoggedIn, onLogin, onLogout }) => (
   <Toolbar backgroundColor="white" mt={1} mb={2}>
     <Space auto />
-    <NavItem is="object" color="midgray">
-      <Link to="/">
+    <NavItem is="object" color="black">
+      <NavLink to="/" exact activeStyle={{ color: 'rgb(136, 136, 136)' }}>
         <Icon
           name="home"
           width="32px"
           height="32px"
-          fill={currentPath === '/' ? '#999' : 'currentColor'}
           className={styles.navItem}
         />
-      </Link>
+      </NavLink>
     </NavItem>
     <Space auto />
-    <NavItem is="object" color="midgray">
-      <Link to="/about">
+    <NavItem is="object" color="black">
+      <NavLink to="/about" activeStyle={{ color: 'rgb(136, 136, 136)' }}>
         <Icon
           name="info"
           width="32px"
           height="32px"
-          fill={currentPath === '/about' ? '#999' : 'currentColor'}
           className={styles.navItem}
         />
-      </Link>
+      </NavLink>
     </NavItem>
     <Space auto />
     {
       isLoggedIn &&
-      <NavItem is="object" color="midgray">
-        <Link to="/items">
+      <NavItem is="object" color="black">
+        <NavLink to="/items" activeStyle={{ color: 'rgb(136, 136, 136)' }}>
           <Icon
             name="list"
             width="32px"
             height="32px"
-            fill={currentPath === '/items' ? '#999' : 'currentColor'}
             className={styles.navItem}
           />
-        </Link>
+        </NavLink>
       </NavItem>
     }
     { isLoggedIn && <Space auto /> }
-    <NavItem is="object" color="midgray" onClick={() => (isLoggedIn ? onLogout() : onLogin())}>
+    <NavItem is="object" color="black" onClick={() => (isLoggedIn ? onLogout() : onLogin())}>
       <Icon
         name="user"
         width="32px"
@@ -64,7 +62,6 @@ const Navbar = ({ currentPath, isLoggedIn, onLogin, onLogout }) => (
 );
 
 Navbar.propTypes = {
-  currentPath: PropTypes.string.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   onLogin: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired,

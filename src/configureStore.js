@@ -1,8 +1,7 @@
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import createLogger from 'redux-logger';
+import { createLogger } from 'redux-logger';
 import { routerMiddleware, routerReducer } from 'react-router-redux';
-import Perf from 'react-addons-perf';
 import { Iterable } from 'immutable';
 
 import { reducer as authReducer } from './auth';
@@ -13,13 +12,13 @@ const reducer = combineReducers(
   {
     auth: authReducer,
     items: itemsReducer,
-    routing: routerReducer,
+    router: routerReducer,
   },
 );
 
-export default function configureStore(browserHistory, initialState) {
+export default function configureStore(history, initialState) {
   const sagaMiddleware = createSagaMiddleware();
-  const middlewares = [sagaMiddleware, routerMiddleware(browserHistory)];
+  const middlewares = [sagaMiddleware, routerMiddleware(history)];
 
   if (process.env.NODE_ENV !== 'production') {
     // Log Immutable state beautifully
@@ -40,8 +39,6 @@ export default function configureStore(browserHistory, initialState) {
     });
 
     middlewares.push(logger);
-
-    window.Perf = Perf;
   }
 
   const store = createStore(

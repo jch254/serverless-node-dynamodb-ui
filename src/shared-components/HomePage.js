@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
@@ -9,6 +10,7 @@ import {
 import { Flex } from 'reflexbox';
 
 import { actions as authActions, selectors as authSelectors } from '../auth';
+
 import styles from './HomePage.css';
 
 const HomePage = ({ isLoggedIn, actions }) => (
