@@ -4,7 +4,7 @@ import { ResponseError } from '../apiService';
 import { GlobalState } from '../rootReducer';
 import Item from './Item';
 
-export const getError = (state: GlobalState): ResponseError | null => state.items.error;
+export const getError = (state: GlobalState): ResponseError | undefined => state.items.error;
 
 export const getIsFetching = (state: GlobalState): boolean => state.items.isFetching;
 

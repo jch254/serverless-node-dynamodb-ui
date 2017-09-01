@@ -21,7 +21,7 @@ import { getError, getIsFetching, getSortedItems } from './selectors';
 interface StateProps {
   isFetching: boolean;
   items: Map<string, Item>;
-  error: ResponseError | null;
+  error?: ResponseError;
   idToken: string;
 }
 
@@ -65,9 +65,9 @@ class ItemsPage extends React.PureComponent<StateProps & DispatchProps, ItemsPag
           </Heading>
           <ItemCreator
             itemName={newItemName}
-            onChangeItem={(newItemName: string) => this.setState({ newItemName })}
-            onCreateItem={() => {
-              actions.createItem(idToken, { name: newItemName });
+            onChangeItem={(itemName: string) => this.setState({ newItemName: itemName })}
+            onCreateItem={(itemName: string) => {
+              actions.createItem(idToken, { name: itemName });
               this.setState({ newItemName: '' });
             }}
           />

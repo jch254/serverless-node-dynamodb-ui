@@ -2,6 +2,6 @@
 
 cd infrastructure
 terraform init
-terraform plan -var-file serverless-node-dynamodb-ui.tfvars
-terraform apply -var-file serverless-node-dynamodb-ui.tfvars
+terraform plan -var-file main.tfvars -out main.tfplan
+terraform apply -var-file main.tfvars main.tfplan
 cd ..

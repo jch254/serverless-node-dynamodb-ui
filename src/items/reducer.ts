@@ -76,7 +76,7 @@ export interface ItemsState {
   isCreating: boolean;
   isDeleting: boolean;
   items: Map<string, Item>;
-  error: ResponseError | null;
+  error?: ResponseError;
 }
 
 export const initialState: ItemsState = {
@@ -84,7 +84,6 @@ export const initialState: ItemsState = {
   isCreating: false,
   isDeleting: false,
   items: new Map<string, Item>(),
-  error: null,
 };
 
 export default function reducer(state: ItemsState = initialState, action: ItemsAction) {

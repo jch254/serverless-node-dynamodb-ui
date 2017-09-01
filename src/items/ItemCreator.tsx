@@ -10,7 +10,7 @@ const styles = require('./ItemCreator.css');
 interface ItemCreatorProps {
   itemName: string;
   onChangeItem: (text: string) => void;
-  onCreateItem: () => void;
+  onCreateItem: (text: string) => void;
 }
 
 const ItemCreator: React.StatelessComponent<ItemCreatorProps> = ({
@@ -28,7 +28,7 @@ const ItemCreator: React.StatelessComponent<ItemCreatorProps> = ({
       onKeyPress={(event: any) => {
         if (event.key === 'Enter') {
           event.preventDefault();
-          onCreateItem();
+          onCreateItem(itemName);
         }
       }}
     />
@@ -36,7 +36,7 @@ const ItemCreator: React.StatelessComponent<ItemCreatorProps> = ({
     <div
       onClick={() => {
         if (itemName !== '') {
-          onCreateItem();
+          onCreateItem(itemName);
         }
       }}
     >

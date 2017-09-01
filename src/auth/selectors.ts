@@ -1,7 +1,7 @@
 import { GlobalState } from '../rootReducer';
 
-export const getError = (state: GlobalState): string | null => state.auth.error;
+export const getError = (state: GlobalState): string | undefined => state.auth.error;
 
-export const getIdToken = (state: GlobalState): string | null => state.auth.idToken;
+export const getIdToken = (state: GlobalState): string | undefined => state.auth.idToken;
 
-export const getIsLoggedIn = (state: GlobalState): boolean => state.auth.profile !== null;
+export const getIsLoggedIn = (state: GlobalState): boolean => state.auth.profile !== undefined;

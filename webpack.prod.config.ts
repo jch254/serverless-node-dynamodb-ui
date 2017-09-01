@@ -24,6 +24,7 @@ const config: webpack.Configuration = {
         AUTH0_CLIENT_ID: JSON.stringify(process.env.AUTH0_CLIENT_ID),
         AUTH0_DOMAIN: JSON.stringify(process.env.AUTH0_DOMAIN),
         API_BASE_URI: JSON.stringify(process.env.API_BASE_URI),
+        GA_ID: JSON.stringify(process.env.GA_ID),
       },
     }),
     new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/),
@@ -47,12 +48,12 @@ const config: webpack.Configuration = {
     }),
     new webpack.HashedModuleIdsPlugin(),
     new WebpackChunkHash(),
-    new ExtractTextPlugin({ 
+    new ExtractTextPlugin({
       filename: 'assets/[name].[contenthash].css',
       allChunks: true,
     }),
     new OptimizeCssAssetsPlugin({
-      cssProcessorOptions: { discardComments: { removeAll: true } },
+      cssProcessorOptions: { safe: true, discardComments: { removeAll: true } },
       canPrint: false,
     }),
     new webpack.optimize.UglifyJsPlugin({

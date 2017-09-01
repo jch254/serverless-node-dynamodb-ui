@@ -13,7 +13,7 @@ export interface RestrictedPageProps {
 }
 
 interface StateProps {
-  idToken: string | null;
+  idToken?: string;
 }
 
 interface DispatchProps {

@@ -6,13 +6,12 @@ import {
 import { Flex } from 'reflexbox';
 
 import Item from './Item';
-import { DeleteItem } from './reducer';
 
 const styles = require('./ItemList.css');
 
 interface ItemsListProps {
   items: Map<string, Item>;
-  onDeleteItem: (itemId: string) => DeleteItem;
+  onDeleteItem: (itemId: string) => void;
 }
 
 const ItemsList: React.StatelessComponent<ItemsListProps> = ({
