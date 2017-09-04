@@ -32,14 +32,14 @@ terraform {
 
 1. `terraform init`
 1. `terraform plan -var-file main.tfvars -out main.tfplan`
-1. `terraform apply -var-file main.tfvars main.tfplan`
+1. `terraform apply main.tfplan`
 
 #### Updating infrastructure
 
 1. Make necessary infrastructure code changes.
 1. `terraform init`
 1. `terraform plan -var-file main.tfvars -out main.tfplan`
-1. `terraform apply -var-file main.tfvars main.tfplan`
+1. `terraform apply main.tfplan`
 
 #### Destroying infrastructure (use with care)
 
