@@ -40,7 +40,7 @@ const HomePage: React.StatelessComponent<{} & StateProps & DispatchProps> = ({ i
         </a>
       </Heading>
       <Text mt={2}>
-        A simple API powered by Serverless, TypeScript, Webpack and DynamoDB, intended as a starting point for Serverless APIs.
+        An API powered by Serverless, TypeScript, Webpack and DynamoDB, intended as a starting point for Serverless APIs.
         <br />
         <br />
         Auth0 handles authentication - login below or in the navbar to generate an auth token and gain

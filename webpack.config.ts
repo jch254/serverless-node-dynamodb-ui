@@ -59,7 +59,7 @@ const config: webpack.Configuration = {
       meta: [
         {
           name: 'description',
-          content: 'A simple API powered by Serverless, TypeScript, Webpack and DynamoDB, intended as a starting point for Serverless APIs',
+          content: 'An API powered by Serverless, TypeScript, Webpack and DynamoDB, intended as a starting point for Serverless APIs',
         },
       ],
       minify: {

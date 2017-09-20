@@ -15,7 +15,7 @@ const AboutPage: React.StatelessComponent<{}> = () => (
         About
       </Heading>
       <Text mt={2}>
-        A simple React/Redux-powered UI to front a simple Serverless API. This project utilises TypeScript for type checking
+        React/Redux-powered UI to front Serverless API. This project utilises TypeScript for type checking
         and transpliation to browser-friendly ES5 JavaScript. I created these projects as a starting point for Serverless web apps.
         <br />
         <br />
@@ -25,12 +25,7 @@ const AboutPage: React.StatelessComponent<{}> = () => (
         The API also determines the identity of the user via the auth token.
         <br />
         <br />
-        Manual steps suck so both projects use Bitbucket Pipelines to automate the build and deployment to AWS.
-        I&#39;ve also created Docker-powered build/deployment environments for both Serverless and AWS-hosted
-        React/Redux projects to use with Bitbucket Pipelines.
-        <br />
-        <br />
-        I strive to build self-contained projects - everything required to develop, build, run, test and deploy is
+        I aim to build self-contained projects - everything required to develop, build, run, test and deploy is
         defined as code and lives in one repository. This is highly beneficial as each project has a single source of
         truth.
       </Text>
