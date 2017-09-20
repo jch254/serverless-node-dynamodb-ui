@@ -1,7 +1,7 @@
 {
   "name": "serverless-node-dynamodb-ui",
   "version": "1.0.0",
-  "description": "UI in front of Serverless, Node and DynamoDB-powered API",
+  "description": "React/Redux-powered UI to front Serverless API",
   "license": "MIT",
   "scripts": {
     "dev": "ts-node server.ts",
