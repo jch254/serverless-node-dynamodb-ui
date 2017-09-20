@@ -2,11 +2,7 @@
 
 [Bitbucket Pipelines status](https://bitbucket.org/jch254/serverless-node-dynamodb-ui/addon/pipelines/home)
 
-A simple React/Redux-powered UI to front a simple [Serverless API](https://github.com/jch254/serverless-node-dynamodb-api). This project utilises [TypeScript for type checking](https://www.youtube.com/watch?v=V1po0BT7kac) and transpliation to browser-friendly ES5 JavaScript.
-
-Auth0 handles authentication. Users must sign up/login to generate an auth token and gain access to the secured area. All endpoints in the API check validity of the auth token and return unauthorised if invalid, the UI then prompts the user to log in again. The API also determines the identity of the user via the auth token.
-
-This project is deployed to AWS on S3, CloudFront is used as a CDN and Route 53 is used for DNS. All infrastructure is defined as code in the [/infrastructure](infrastructure) directory. Manual steps suck so this project uses Bitbucket Pipelines to automate the build and deployment to AWS - see [bitbucket-pipelines.yml](bitbucket-pipelines.yml). AWS credentials are set using [Bitbucket Pipelines environment variables](https://confluence.atlassian.com/bitbucket/environment-variables-in-bitbucket-pipelines-794502608.html).
+React/Redux-powered UI to front [Serverless API](https://github.com/jch254/serverless-node-dynamodb-api). This project utilises [TypeScript for type checking](https://www.youtube.com/watch?v=V1po0BT7kac) and transpliation to browser-friendly ES5 JavaScript. Auth0 handles authentication. Users must sign up/login to generate an auth token and gain access to the secured area. All endpoints in the API check validity of the auth token and return unauthorised if invalid, the UI then prompts the user to log in again. The API also determines the identity of the user via the auth token.
 
 ### Main technologies used
 
@@ -35,6 +31,14 @@ E.g. `AUTH0_CLIENT_ID=YOUR_CLIENT_ID AUTH0_DOMAIN=YOUR_DOMAIN API_BASE_URI="http
 ```
 yarn install
 yarn run dev
+```
+
+### Running development version locally in Docker container
+1. Run the following commands in the app's root directory then submit requests to http://localhost:3001.
+
+```
+docker build -t sls-api .
+docker run -p 3001:3001 -e AUTH0_CLIENT_ID=YOUR_CLIENT_ID -e AUTH0_DOMAIN=YOUR_DOMAIN -e API_BASE_URI=YOUR_API sls-api
 ```
 
 ### Building the production version

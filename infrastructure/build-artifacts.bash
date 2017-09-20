@@ -1,5 +1,7 @@
 #!/bin/bash -ex
 
-yarn install
-export API_BASE_URI="https://sls-api.603.nu"
+echo Building artifacts...
+
 yarn run build
+
+echo Finished building artifacts
