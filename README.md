@@ -1,4 +1,4 @@
-# [Serverless-node-dynamodb-ui](https://serverless-api.603.nu)
+# [Serverless-node-dynamodb-ui](https://serverless-api.603.nz)
 
 React/Redux-powered UI to front [Serverless API](https://github.com/jch254/serverless-node-dynamodb-api). This project utilises [TypeScript for type checking](https://www.youtube.com/watch?v=V1po0BT7kac) and transpliation to browser-friendly ES5 JavaScript. Auth0 handles authentication. Users must sign up/login to generate an auth token and gain access to the secured area. All endpoints in the API check validity of the auth token and return unauthorised if invalid, the UI then prompts the user to log in again. The API also determines the identity of the user via the auth token.
 
@@ -58,4 +58,4 @@ yarn run prod
 
 ### Deployment/Infrastructure
 
-Refer to the [/infrastructure](infrastructure) directory.
+Refer to the [/infrastructure](./infrastructure) directory.
