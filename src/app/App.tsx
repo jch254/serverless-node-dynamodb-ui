@@ -3,8 +3,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
+import { Flex } from 'rebass';
 import { bindActionCreators, Dispatch } from 'redux';
-import { Flex } from 'reflexbox';
 
 import RestrictedPage from '../auth/LoadableRestrictedPage';
 import { loginRequest, logout } from '../auth/reducer';

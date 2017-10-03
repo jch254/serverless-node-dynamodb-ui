@@ -5,7 +5,6 @@ import {
   Heading,
 } from 'rebass';
 import { bindActionCreators, Dispatch } from 'redux';
-import { Flex } from 'reflexbox';
 
 import { getIdToken } from '../auth/selectors';
 import FullscreenLoader from '../shared-components/FullscreenLoader';
@@ -58,22 +57,20 @@ class ItemsPage extends React.PureComponent<StateProps & DispatchProps, ItemsPag
 
     return isFetching ?
       <FullscreenLoader /> :
-      <Flex style={{ flex: '1 0 auto' }}>
-        <Container style={{ width: '100%' }} pt={3} pb={3}>
-          <Heading mb={2} level={3} big>
-            Your Items/Tings
-          </Heading>
-          <ItemCreator
-            itemName={newItemName}
-            onChangeItem={(itemName: string) => this.setState({ newItemName: itemName })}
-            onCreateItem={(itemName: string) => {
-              actions.createItem(idToken, { name: itemName });
-              this.setState({ newItemName: '' });
-            }}
-          />
-          <ItemsList items={items} onDeleteItem={(itemId: string) => actions.deleteItem(idToken, itemId)}/>
-        </Container>
-      </Flex>;
+      <Container w={1} style={{ flex: 'auto' }} pt={3} pb={3}>
+        <Heading pb={2} f={8}>
+          Your Items/Tings
+        </Heading>
+        <ItemCreator
+          itemName={newItemName}
+          onChangeItem={(itemName: string) => this.setState({ newItemName: itemName })}
+          onCreateItem={(itemName: string) => {
+            actions.createItem(idToken, { name: itemName });
+            this.setState({ newItemName: '' });
+          }}
+        />
+        <ItemsList items={items} onDeleteItem={(itemId: string) => actions.deleteItem(idToken, itemId)}/>
+      </Container>;
   }
 }
 

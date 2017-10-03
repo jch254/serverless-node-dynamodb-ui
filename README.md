@@ -10,7 +10,7 @@ React/Redux-powered UI to front [Serverless API](https://github.com/jch254/serve
 * [Auth0 Lock](https://github.com/auth0/lock)
 * [React Router](https://github.com/ReactTraining/react-router)
 * [Reselect](https://github.com/jxnblk/rebass)
-* [Rebass](https://github.com/jxnblk/rebass) & [Reflexbox](https://github.com/jxnblk/reflexbox)
+* [Rebass](https://github.com/jxnblk/rebass)
 * [React Loadable](https://github.com/thejameskyle/react-loadable)
 * [Webpack](https://github.com/webpack/webpack)
 * [TypeScript](https://github.com/Microsoft/TypeScript)

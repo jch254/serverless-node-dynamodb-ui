@@ -1,11 +1,10 @@
-import * as classNames from 'classnames';
+// import * as classNames from 'classnames';
 import * as React from 'react';
-import Textarea from 'react-expanding-textarea';
-import Icon from 'react-geomicons';
-import { Space } from 'rebass';
-import { Flex } from 'reflexbox';
+// import Textarea from 'react-expanding-textarea';
+// import Icon from 'react-geomicons';
+import { Flex } from 'rebass';
 
-const styles = require('./ItemCreator.css');
+// const styles = require('./ItemCreator.css');
 
 interface ItemCreatorProps {
   itemName: string;
@@ -19,7 +18,7 @@ const ItemCreator: React.StatelessComponent<ItemCreatorProps> = ({
   onCreateItem,
 }) => (
   <Flex mt={2}>
-    <Textarea
+    {/* <Textarea
       rows="1"
       className={styles.itemCreator}
       value={itemName}
@@ -31,8 +30,7 @@ const ItemCreator: React.StatelessComponent<ItemCreatorProps> = ({
           onCreateItem(itemName);
         }
       }}
-    />
-    <Space auto />
+    /> */}
     <div
       onClick={() => {
         if (itemName !== '') {
@@ -40,7 +38,7 @@ const ItemCreator: React.StatelessComponent<ItemCreatorProps> = ({
         }
       }}
     >
-      <Icon
+      {/* <Icon
         name="check"
         width="22px"
         height="22px"
@@ -49,7 +47,7 @@ const ItemCreator: React.StatelessComponent<ItemCreatorProps> = ({
           styles.checkButton,
           { [`${styles.pointerCursor}`]: itemName !== '' },
         )}
-      />
+      /> */}
     </div>
   </Flex>
 );

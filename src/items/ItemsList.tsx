@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {
-  Space,
+  Flex,
+  Small,
   Text,
 } from 'rebass';
-import { Flex } from 'reflexbox';
 
 import Item from './Item';
 
@@ -24,10 +24,9 @@ const ItemsList: React.StatelessComponent<ItemsListProps> = ({
         <Text>
           {item.name}
         </Text>
-        <Space auto />
-        <Text small style={{ minWidth: '200px', textAlign: 'right' }}>
+        <Small ml="auto" style={{ minWidth: '200px', textAlign: 'right' }}>
           {item.createdUtc.calendar()}
-        </Text>
+        </Small>
       </Flex>,
   );
 

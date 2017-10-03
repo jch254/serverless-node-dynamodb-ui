@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import {
   Button,
   Container,
+  Flex,
   Heading,
+  Subhead,
   Text,
 } from 'rebass';
 import { bindActionCreators, Dispatch } from 'redux';
-import { Flex } from 'reflexbox';
 
 import { loginRequest, logout } from '../auth/reducer';
 import { getIsLoggedIn } from '../auth/selectors';
@@ -26,10 +27,12 @@ interface DispatchProps {
 
 const styles = require('./HomePage.css');
 
+// TODO: Improve button spacing
+// TODO: Link to about page
 const HomePage: React.StatelessComponent<{} & StateProps & DispatchProps> = ({ isLoggedIn, actions }) => (
-  <Flex style={{ flex: '1 0 auto' }} >
-    <Container style={{ width: '100%' }} pt={3} pb={3}>
-      <Heading level={3} big>
+  <Flex width={1} align="center" justify="center" column style={{ flex: 'auto' }}>
+    <Container>
+      <Heading f={8}>
         <a
           href="http://docs.serverlessapi.apiary.io"
           className={styles.hoverLink}
@@ -39,25 +42,20 @@ const HomePage: React.StatelessComponent<{} & StateProps & DispatchProps> = ({ i
           Serverless API
         </a>
       </Heading>
-      <Text mt={2}>
-        An API powered by Serverless, TypeScript, Webpack and DynamoDB, intended as a starting point for Serverless APIs.
-        <br />
-        <br />
-        Auth0 handles authentication - login below or in the navbar to generate an auth token and gain
-        access to the secured area.
+      <Subhead pt={2}>
+        Powered by Serverless, TypeScript, Webpack and DynamoDB
+      </Subhead>
+      <Text pt={2}>
+      Login to generate an auth token and gain access to the secured area.
       </Text>
       {
         isLoggedIn ?
-          <div onClick={actions.logout}>
-            <Button theme="error" mt={3} big>
-              Logout
-            </Button>
-          </div> :
-          <div onClick={actions.loginRequest}>
-            <Button theme="success" mt={3} big>
-              Login
-            </Button>
-          </div>
+          <Button bg="red4" onClick={actions.logout} style={{ cursor: 'pointer' }}>
+            Logout
+          </Button> :
+          <Button bg="green4" onClick={actions.loginRequest} style={{ cursor: 'pointer' }}>
+            Login
+          </Button>
       }
     </Container>
   </Flex>

@@ -1,19 +1,20 @@
 import * as React from 'react';
 import {
   Container,
+  Flex,
   Heading,
+  Subhead,
 } from 'rebass';
-import { Flex } from 'reflexbox';
 
 const NotFoundPage = () => (
-  <Flex style={{ flex: '1 0 auto' }} >
-    <Container style={{ width: '100%' }} pt={3} pb={3}>
-      <Heading mt={1} level={2} big>
-        404!
+  <Flex width={1} align="center" justify="center" column style={{ flex: 'auto' }}>
+    <Container>
+      <Heading f={8}>
+        404.
       </Heading>
-      <Heading mt={1} level={2}>
+      <Subhead mt={2}>
         Sorry, that page does not exist.
-      </Heading>
+      </Subhead>
     </Container>
   </Flex>
 );
