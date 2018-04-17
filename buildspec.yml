@@ -17,7 +17,7 @@ env:
     TF_VAR_acm_arn: "arn:aws:acm:us-east-1:982898479788:certificate/65811194-cc89-4926-83c3-199c5c0b6e0c"
     AUTH0_CLIENT_ID: "PabWYDl71ibZ920e3XjoPIe0QoJVrhtY"
     AUTH0_DOMAIN: "603.au.auth0.com"
-    API_BASE_URI: "https://sls-api.603.nu"
+    API_BASE_URI: "https://sls-api.603.nz"
     REMOTE_STATE_BUCKET: "603-terraform-remote-state"
   parameter-store:
     GA_ID: "/serverless-node-dynamodb-ui/ga-id"
