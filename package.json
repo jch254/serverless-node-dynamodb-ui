@@ -17,7 +17,7 @@
   },
   "author": "Jordan Hornblow <jordan@jch254.com>",
   "dependencies": {
-    "auth0-lock": "^10.20.0",
+    "auth0-lock": "^11.30.1",
     "classnames": "^2.2.5",
     "history": "^4.7.2",
     "immutable-assign": "^1.0.36",
