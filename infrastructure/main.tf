@@ -6,7 +6,7 @@ terraform {
 
 provider "aws" {
   region  = "${var.region}"
-  version = "~> 1.0"
+  version = "5.9.0"
 }
 
 resource "aws_iam_role" "codebuild_role" {
