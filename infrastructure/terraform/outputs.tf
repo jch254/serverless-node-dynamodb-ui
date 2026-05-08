@@ -6,7 +6,7 @@ output "zone_id" {
 output "dns_record_ids" {
   description = "Cloudflare DNS record IDs keyed by record key."
   value = merge(
-    module.dns_validation_records.record_ids,
+    { acm_validation = cloudflare_dns_record.acm_validation.id },
     module.dns_app_records.record_ids,
   )
 }

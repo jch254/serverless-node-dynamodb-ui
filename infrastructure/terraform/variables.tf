@@ -25,7 +25,7 @@ variable "host" {
 variable "bucket_name" {
   description = "S3 bucket name used for the private CloudFront origin."
   type        = string
-  default     = "serverless-api.603.nz"
+  default     = "serverless-api-603-nz-prod"
 }
 
 variable "cloudflare_api_token_parameter_name" {
