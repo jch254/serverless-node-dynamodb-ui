@@ -47,31 +47,55 @@ export const Auth0Provider = ({
   const dispatch = useDispatch<any>();
   const navigate = useNavigate();
   const auth0Client = useSelector(getAuth0Client);
+  const initRef = React.useRef(false);
 
   React.useEffect(
     () => {
+      // Guard against double-init: handleRedirectCallback consumes the stored
+      // transaction, so a second invocation throws "Invalid state".
+      if (initRef.current) {
+        return;
+      }
+      initRef.current = true;
+
       const initAuth0 = async () => {
-        const client = await createAuth0Client(auth0Options as Auth0ClientOptions);
+        try {
+          const client = await createAuth0Client(auth0Options as Auth0ClientOptions);
 
-        dispatch(setAuth0Client(client));
+          dispatch(setAuth0Client(client));
 
-        if (window.location.search.includes('code=')) {
-          const { appState } = await client.handleRedirectCallback();
+          if (window.location.search.includes('code=') && window.location.search.includes('state=')) {
+            let targetUrl = '/';
 
-          navigate(appState && appState.targetUrl ? appState.targetUrl : '/', { replace: true });
+            try {
+              const { appState } = await client.handleRedirectCallback();
+
+              if (appState && appState.targetUrl) {
+                targetUrl = appState.targetUrl;
+              }
+            } catch (callbackError) {
+              console.warn('Auth0 redirect callback failed:', callbackError);
+            }
+
+            // Scrub the code/state params so a hot reload or back-nav can't
+            // re-enter the callback path.
+            navigate(targetUrl, { replace: true });
+          }
+
+          const authed = await client.isAuthenticated();
+
+          setIsAuthenticated(authed);
+
+          if (authed) {
+            const profile = await client.getUser();
+
+            setUser(profile);
+          }
+        } catch (error) {
+          console.error('Auth0 initialization failed:', error);
+        } finally {
+          setIsLoggingIn(false);
         }
-
-        const authed = await client.isAuthenticated();
-
-        setIsAuthenticated(authed);
-
-        if (authed) {
-          const profile = await client.getUser();
-
-          setUser(profile);
-        }
-
-        setIsLoggingIn(false);
       };
 
       initAuth0();

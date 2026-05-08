@@ -16,8 +16,8 @@ const HomePage: React.FC = () => {
   const isLoggedIn = user !== undefined;
 
   return (
-    <Flex style={{ flex: '1 0 auto' }}>
-      <Container style={{ width: '100%' }} pt={3} pb={3}>
+    <Flex align="center" justify="center" style={{ flex: '1 0 auto' }}>
+      <Container style={{ width: '100%', maxWidth: 720 }} pt={3} pb={3}>
         <Heading level={3} big>
           <a
             href="http://docs.serverlessapi.apiary.io"

@@ -6,8 +6,8 @@ import {
 import { Flex } from 'reflexbox';
 
 const NotFoundPage = () => (
-  <Flex style={{ flex: '1 0 auto' }} >
-    <Container style={{ width: '100%' }} pt={3} pb={3}>
+  <Flex align="center" justify="center" style={{ flex: '1 0 auto' }}>
+    <Container style={{ width: '100%', maxWidth: 720 }} pt={3} pb={3}>
       <Heading mt={1} level={2} big>
         404!
       </Heading>
