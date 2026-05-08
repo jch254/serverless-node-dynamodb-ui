@@ -1,6 +1,6 @@
 {
   "name": "serverless-node-dynamodb-ui",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "React/Redux-powered UI to front Serverless API",
   "license": "MIT",
   "packageManager": "pnpm@9.15.9",
