@@ -40,11 +40,19 @@ const ItemsPage: React.FC<StateProps & DispatchProps> = ({ actions, isFetching, 
   React.useEffect(
     () => {
       const requestItems = async () => {
-        const claims = await getIdTokenClaims();
+        try {
+          const claims = await getIdTokenClaims();
 
-        if (claims?.__raw) {
-          setIdToken(claims.__raw);
-          actions.fetchItems(claims.__raw);
+          console.log('[ItemsPage] getIdTokenClaims result:', claims);
+
+          if (claims?.__raw) {
+            setIdToken(claims.__raw);
+            actions.fetchItems(claims.__raw);
+          } else {
+            console.warn('[ItemsPage] No __raw token in claims; cannot fetch items.');
+          }
+        } catch (err) {
+          console.error('[ItemsPage] getIdTokenClaims threw:', err);
         }
       };
 
