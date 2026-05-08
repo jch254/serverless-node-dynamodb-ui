@@ -1,4 +1,4 @@
-import * as iassign from 'immutable-assign';
+import iassign from 'immutable-assign';
 
 import { ResponseError } from '../apiService';
 
@@ -86,7 +86,7 @@ export const initialState: ItemsState = {
   items: new Map<string, Item>(),
 };
 
-export default function reducer(state: ItemsState = initialState, action: ItemsAction) {
+export default function reducer(state: ItemsState = initialState, action: ItemsAction): ItemsState {
   switch (action.type) {
     case FETCH_ITEMS:
       return iassign(

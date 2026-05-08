@@ -1,4 +1,4 @@
-import * as iassign from 'immutable-assign';
+import iassign from 'immutable-assign';
 
 import { getStoredAuthState } from '../utils';
 

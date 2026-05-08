@@ -8,28 +8,26 @@ const SERVER_PORT = process.env.SERVER_PORT ? parseInt(process.env.SERVER_PORT a
 const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME || 'localhost';
 
 const webpackConfig = process.env.NODE_ENV === 'production' ? prodConfig : devConfig;
-const output = webpackConfig.output as webpack.Output;
+const output = webpackConfig.output as webpack.Configuration['output'];
 
 const compiler = webpack(webpackConfig);
 
-const server = new WebpackDevServer(compiler, {
-  publicPath: output.publicPath as string,
-  hot: process.env.NODE_ENV !== 'production',
+const server = new WebpackDevServer({
   historyApiFallback: true,
-  stats: {
-    colors: true,
-    hash: false,
-    timings: true,
-    chunks: false,
-    chunkModules: false,
-    modules: false,
+  hot: process.env.NODE_ENV !== 'production',
+  devMiddleware: {
+    publicPath: output?.publicPath as string,
+    stats: {
+      colors: true,
+      hash: false,
+      timings: true,
+      chunks: false,
+      chunkModules: false,
+      modules: false,
+    },
   },
-});
+}, compiler);
 
-server.listen(SERVER_PORT, SERVER_HOSTNAME, (err: Error) => {
-  if (err) {
-    console.log(err);
-  }
-
+server.startCallback(() => {
   console.log(`Server listening at http://${SERVER_HOSTNAME}:${SERVER_PORT}`);
 });

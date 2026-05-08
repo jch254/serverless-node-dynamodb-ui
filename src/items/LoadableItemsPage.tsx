@@ -3,7 +3,7 @@ import LoadableComponent from '../shared-components/LoadableComponent';
 export default LoadableComponent({
   loader: () => import(
     /* webpackChunkName: "items" */
-    './ItemsPage',
+    './ItemsPage'
   ),
-  webpackRequireWeakId: () => require.resolveWeak('./ItemsPage'),
+  webpackRequireWeakId: () => 0,
 });

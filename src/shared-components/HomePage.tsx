@@ -26,7 +26,7 @@ interface DispatchProps {
 
 const styles = require('./HomePage.css');
 
-const HomePage: React.StatelessComponent<{} & StateProps & DispatchProps> = ({ isLoggedIn, actions }) => (
+const HomePage: React.FC<{} & StateProps & DispatchProps> = ({ isLoggedIn, actions }) => (
   <Flex style={{ flex: '1 0 auto' }} >
     <Container style={{ width: '100%' }} pt={3} pb={3}>
       <Heading level={3} big>
@@ -63,7 +63,7 @@ const HomePage: React.StatelessComponent<{} & StateProps & DispatchProps> = ({ i
   </Flex>
 );
 
-const mapStateToProps = (state: GlobalState, ownProps: {}): StateProps => ({
+const mapStateToProps = (state: GlobalState): StateProps => ({
   isLoggedIn: getIsLoggedIn(state),
 });
 
@@ -72,4 +72,3 @@ const mapDispatchToProps = (dispatch: Dispatch<any>): DispatchProps => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
-

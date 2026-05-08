@@ -14,7 +14,7 @@ interface ItemsListProps {
   onDeleteItem: (itemId: string) => void;
 }
 
-const ItemsList: React.StatelessComponent<ItemsListProps> = ({
+const ItemsList: React.FC<ItemsListProps> = ({
   items,
   onDeleteItem,
 }) => {

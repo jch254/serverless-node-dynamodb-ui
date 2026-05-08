@@ -1,9 +1,9 @@
-import createBrowserHistory from 'history/createBrowserHistory';
-import * as iassign from 'immutable-assign';
+import iassign from 'immutable-assign';
 import 'isomorphic-fetch';
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 
 import App from './app/App';
 import { configureStore } from './configureStore';
@@ -12,7 +12,7 @@ require('./index.css');
 
 iassign.setOption({
   freeze: process.env.NODE_ENV !== 'production',
-  copyFunc: (value: any, propName: string) => {
+  copyFunc: (value: any, _propName: string) => {
     if (value instanceof Map) {
       return new Map(value) as any;
     }
@@ -27,8 +27,7 @@ if (process.env.NODE_ENV !== 'production') {
   require('map.prototype.tojson');
 }
 
-const history = createBrowserHistory();
-const store = configureStore(history);
+const store = configureStore();
 
 declare global {
   interface Window {
@@ -36,9 +35,13 @@ declare global {
   }
 }
 
-ReactDOM.render(
+const container = document.getElementById('root');
+const root = createRoot(container!);
+
+root.render(
   <Provider store={store}>
-    <App history={history} />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>,
-  document.getElementById('root'),
 );

@@ -1,24 +1,26 @@
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 import path = require('path');
-
-import HtmlWebpackPlugin = require('html-webpack-plugin');
-import InlineChunkManifestHtmlWebpackPlugin = require('inline-chunk-manifest-html-webpack-plugin');
 import webpack = require('webpack');
 
 const SERVER_PORT = process.env.SERVER_PORT || 3001;
 const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME || 'localhost';
+const srcPath = path.join(__dirname, 'src');
+const nodeModulesPath = path.join(__dirname, 'node_modules');
 
 const config: webpack.Configuration = {
+  mode: 'development',
   devtool: 'cheap-module-source-map',
   entry: [
-    'webpack/hot/dev-server',
     `webpack-dev-server/client?http://${SERVER_HOSTNAME}:${SERVER_PORT}`,
-    path.join(__dirname, 'src', 'index.tsx'),
+    path.join(srcPath, 'index.tsx'),
   ],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'assets/[name].js',
     chunkFilename: 'assets/[name].js',
     publicPath: '/',
+    clean: true,
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -31,78 +33,76 @@ const config: webpack.Configuration = {
       },
     }),
     new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: (module: any) => module.context && module.context.indexOf('node_modules') !== -1,
+    new ForkTsCheckerWebpackPlugin({
+      async: true,
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-      chunks: ['vendor'],
-      name: 'auth0',
-      minChunks: (module: any) => module.resource && (/auth0/).test(module.resource),
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      chunks: ['vendor'],
-      name: 'react-loading',
-      minChunks: (module: any) => module.resource && (/react-loading/).test(module.resource),
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      async: 'async-common',
-      minChunks: (module: any, count: number) => count >= 2,
-    }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
       title: 'Serverless API | 603.nz',
-      template: path.join(__dirname, 'src', 'index.ejs'),
-      favicon:  path.join(__dirname, 'src', 'favicon.ico'),
-      meta: [
-        {
-          name: 'description',
-          content: 'An API powered by Serverless, TypeScript, Webpack and DynamoDB, intended as a starting point for Serverless APIs',
-        },
-      ],
+      template: path.join(srcPath, 'index.ejs'),
+      favicon: path.join(srcPath, 'favicon.ico'),
+      meta: {
+        description:
+          'An API powered by Serverless, TypeScript, Webpack and DynamoDB, intended as a starting point for Serverless APIs',
+      },
       minify: {
         collapseWhitespace: true,
       },
     }),
-    new InlineChunkManifestHtmlWebpackPlugin({
-      dropAsset: true,
-	  }),
   ],
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        auth0: {
+          test: /[\\/]node_modules[\\/].*auth0/,
+          name: 'auth0',
+          chunks: 'all',
+        },
+        reactLoading: {
+          test: /[\\/]node_modules[\\/]react-loading/,
+          name: 'react-loading',
+          chunks: 'all',
+        },
+      },
+    },
+    runtimeChunk: 'single',
+  },
   resolve: {
+    alias: {
+      rebass: path.join(srcPath, 'compat', 'rebass.tsx'),
+      reflexbox: path.join(srcPath, 'compat', 'reflexbox.tsx'),
+      'react-geomicons': path.join(srcPath, 'compat', 'react-geomicons.tsx'),
+    },
+    fallback: {
+      util: require.resolve('util/'),
+    },
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.json'],
-    modules: [
-      path.join(__dirname, 'src'),
-      path.join(__dirname, 'node_modules'),
-    ],
+    modules: [srcPath, nodeModulesPath],
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        enforce: 'pre',
-        loader: 'tslint-loader',
-      },
-      {
-        test: /\.tsx?$/,
-        include: path.join(__dirname, 'src'),
-        use: [{
-          loader: 'awesome-typescript-loader',
-          options: {
-            silent: true,
+        include: srcPath,
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+              experimentalWatchApi: true,
+            },
           },
-        }],
+        ],
       },
       {
         test: /\.js$/,
         use: ['source-map-loader'],
-        include: path.join(__dirname, 'src'),
+        include: srcPath,
         enforce: 'pre',
       },
       {
-        test: /\.css?$/,
-        include: path.join(__dirname, 'src'),
+        test: /\.css$/,
+        include: srcPath,
         use: [
           {
             loader: 'style-loader',
@@ -110,21 +110,22 @@ const config: webpack.Configuration = {
           {
             loader: 'css-loader',
             options: {
-              modules: true,
-              localIdentName: '[name]__[local]__[hash:base64:5]',
+              modules: {
+                localIdentName: '[name]__[local]__[hash:base64:5]',
+              },
             },
           },
         ],
       },
       {
         test: /\.(jpe?g|png|gif|svg|ico)$/,
-        include: path.join(__dirname, 'src'),
-        use: [{
-          loader: 'url-loader',
-          options: {
-            limit: 10240,
+        include: srcPath,
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            maxSize: 10240,
           },
-        }],
+        },
       },
     ],
   },

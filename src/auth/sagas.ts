@@ -1,7 +1,7 @@
 import Auth0Lock from 'auth0-lock';
-import { push } from 'react-router-redux';
 import { call, put, take } from 'redux-saga/effects';
 
+import { navigateTo } from '../navigation';
 import { removeStoredAuthState, setStoredAuthState } from '../utils';
 
 import {
@@ -56,10 +56,10 @@ export function* loginRequestSaga() {
     const { profile, idToken }: ShowLock = yield call(showLock);
 
     yield put(loginSuccess(profile, idToken));
-    yield put(push('/items'));
+    yield call(navigateTo, '/items');
   } catch (error) {
-    yield put(loginFailure(error));
-    yield put(push('/'));
+    yield put(loginFailure(String(error)));
+    yield call(navigateTo, '/');
   }
 }
 
@@ -92,6 +92,6 @@ export function* watchLogout() {
 
     removeStoredAuthState();
 
-    yield put(push('/'));
+    yield call(navigateTo, '/');
   }
 }

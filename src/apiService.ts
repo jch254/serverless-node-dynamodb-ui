@@ -86,13 +86,13 @@ export interface ResponseError extends Error {
   response?: Response;
 }
 
-export function* handleApiError(error: ResponseError, failureAction: (error?: ResponseError) => Action) {
+export function* handleApiError(error: ResponseError, failureAction: (error: ResponseError) => Action) {
   const response = error.response;
 
   if (response !== undefined) {
     if (response.status === 401) {
       // Unauthorised - show login
-      yield put(failureAction());
+      yield put(failureAction(error));
       yield put(loginRequest());
     }
   } else {

@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import * as React from 'react';
 import {
   NavItem,
@@ -6,11 +6,11 @@ import {
   Toolbar,
 } from 'rebass';
 
-const AppFooter: React.StatelessComponent<{}> = () => (
+const AppFooter: React.FC<{}> = () => (
   <Toolbar backgroundColor="white">
     <Space auto />
     <NavItem style={{ fontWeight: 'normal', fontSize: '12px' }}>
-      <a href="https://603.nz" style={{ cusor: 'pointer', color: 'black' }}>
+      <a href="https://603.nz" style={{ cursor: 'pointer', color: 'black' }}>
         {`© 603.nz ${moment().year()}`}
       </a>
     </NavItem>

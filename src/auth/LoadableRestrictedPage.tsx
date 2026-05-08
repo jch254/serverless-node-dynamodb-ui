@@ -3,7 +3,7 @@ import LoadableComponent from '../shared-components/LoadableComponent';
 export default LoadableComponent({
   loader: () => import(
     /* webpackChunkName: "restricted" */
-    './RestrictedPage',
+    './RestrictedPage'
   ),
-  webpackRequireWeakId: () => require.resolveWeak('./RestrictedPage'),
+  webpackRequireWeakId: () => 0,
 });

@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "types": ["node", "webpack-env"]
+  },
+  "include": [
+    "server.ts",
+    "webpack.config.ts",
+    "webpack.prod.config.ts"
+  ]
+}

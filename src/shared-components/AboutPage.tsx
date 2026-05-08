@@ -8,7 +8,7 @@ import { Flex } from 'reflexbox';
 
 const styles = require('./AboutPage.css');
 
-const AboutPage: React.StatelessComponent<{}> = () => (
+const AboutPage: React.FC<{}> = () => (
   <Flex style={{ flex: '1 0 auto' }} >
     <Container style={{ width: '100%' }} pt={3} pb={3}>
       <Heading level={3} big>

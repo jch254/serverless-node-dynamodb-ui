@@ -1,21 +1,23 @@
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import path = require('path');
-
-import ExtractTextPlugin = require('extract-text-webpack-plugin');
-import HtmlWebpackPlugin = require('html-webpack-plugin');
-import InlineChunkManifestHtmlWebpackPlugin = require('inline-chunk-manifest-html-webpack-plugin');
-import OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+import TerserPlugin from 'terser-webpack-plugin';
 import webpack = require('webpack');
-import WebpackChunkHash = require('webpack-chunk-hash');
+
+const srcPath = path.join(__dirname, 'src');
+const nodeModulesPath = path.join(__dirname, 'node_modules');
 
 const config: webpack.Configuration = {
-  entry: [
-    path.join(__dirname, 'src', 'index.tsx'),
-  ],
+  mode: 'production',
+  devtool: 'source-map',
+  entry: [path.join(srcPath, 'index.tsx')],
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'assets/[name].[chunkhash].js',
-    chunkFilename: 'assets/[name].[chunkhash].js',
+    filename: 'assets/[name].[contenthash].js',
+    chunkFilename: 'assets/[name].[contenthash].js',
     publicPath: '/',
+    clean: true,
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -28,107 +30,96 @@ const config: webpack.Configuration = {
       },
     }),
     new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: (module: any) => module.context && module.context.indexOf('node_modules') !== -1,
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      chunks: ['vendor'],
-      name: 'auth0',
-      minChunks: (module: any) => module.resource && (/auth0/).test(module.resource),
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      chunks: ['vendor'],
-      name: 'react-loading',
-      minChunks: (module: any) => module.resource && (/react-loading/).test(module.resource),
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      async: 'async-common',
-      minChunks: (module: any, count: number) => count >= 2,
-    }),
-    new webpack.HashedModuleIdsPlugin(),
-    new WebpackChunkHash(),
-    new ExtractTextPlugin({
+    new MiniCssExtractPlugin({
       filename: 'assets/[name].[contenthash].css',
-      allChunks: true,
-    }),
-    new OptimizeCssAssetsPlugin({
-      cssProcessorOptions: { safe: true, discardComments: { removeAll: true } },
-      canPrint: false,
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-      },
+      chunkFilename: 'assets/[name].[contenthash].css',
     }),
     new HtmlWebpackPlugin({
       title: 'Serverless API | 603.nz',
-      template: path.join(__dirname, 'src', 'index.ejs'),
-      favicon:  path.join(__dirname, 'src', 'favicon.ico'),
-      meta: [
-        {
-          name: 'description',
-          content: 'An API powered by Serverless, TypeScript, Webpack and DynamoDB, intended as a starting point for Serverless APIs',
-        },
-      ],
+      template: path.join(srcPath, 'index.ejs'),
+      favicon: path.join(srcPath, 'favicon.ico'),
+      meta: {
+        description:
+          'An API powered by Serverless, TypeScript, Webpack and DynamoDB, intended as a starting point for Serverless APIs',
+      },
       minify: {
         collapseWhitespace: true,
+        removeComments: true,
       },
     }),
-    new InlineChunkManifestHtmlWebpackPlugin({
-      dropAsset: true,
-	  }),
   ],
-  resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.json'],
-    modules: [
-      path.join(__dirname, 'src'),
-      path.join(__dirname, 'node_modules'),
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        extractComments: false,
+      }),
+      new CssMinimizerPlugin(),
     ],
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        auth0: {
+          test: /[\\/]node_modules[\\/].*auth0/,
+          name: 'auth0',
+          chunks: 'all',
+        },
+        reactLoading: {
+          test: /[\\/]node_modules[\\/]react-loading/,
+          name: 'react-loading',
+          chunks: 'all',
+        },
+      },
+    },
+    runtimeChunk: 'single',
+  },
+  resolve: {
+    alias: {
+      rebass: path.join(srcPath, 'compat', 'rebass.tsx'),
+      reflexbox: path.join(srcPath, 'compat', 'reflexbox.tsx'),
+      'react-geomicons': path.join(srcPath, 'compat', 'react-geomicons.tsx'),
+    },
+    fallback: {
+      util: require.resolve('util/'),
+    },
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.css', '.json'],
+    modules: [srcPath, nodeModulesPath],
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        enforce: 'pre',
-        loader: 'tslint-loader',
-        options: {
-          emitErrors: true,
-          failOnHint: true,
-        },
-      },
-      {
-        test: /\.tsx?$/,
-        include: path.join(__dirname, 'src'),
-        use: [{
-          loader: 'awesome-typescript-loader',
-          options: {
-            silent: true,
+        include: srcPath,
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+            },
           },
-        }],
+        ],
       },
       {
-        test: /\.css?$/,
-        include: path.join(__dirname, 'src'),
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: {
+        test: /\.css$/,
+        include: srcPath,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
             loader: 'css-loader',
             options: {
               modules: true,
             },
           },
-        }),
+        ],
       },
       {
         test: /\.(jpe?g|png|gif|svg|ico)$/,
-        include: path.join(__dirname, 'src'),
-        use: [{
-          loader: 'url-loader',
-          options: {
-            limit: 10240,
+        include: srcPath,
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            maxSize: 10240,
           },
-        }],
+        },
       },
     ],
   },

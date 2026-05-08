@@ -1,17 +1,19 @@
-import Loadable, { LoadedComponent, OptionsWithoutResolve } from 'react-loadable';
+import * as React from 'react';
 
 import ComponentLoader from './ComponentLoader';
 
 interface LoadableComponentOptions<P> {
-  loader: () => Promise<LoadedComponent<P> | { default: LoadedComponent<P> }>;
+  loader: () => Promise<{ default: React.ComponentType<P> }>;
   webpackRequireWeakId: () => number;
 }
 
-// tslint:disable-next-line:function-name
-export default function LoadableComponent<P>(options: LoadableComponentOptions<P>): LoadedComponent<P> {
-  return Loadable({
-    LoadingComponent: ComponentLoader,
-    loader: options.loader,
-    webpackRequireWeakId: options.webpackRequireWeakId,
-  } as OptionsWithoutResolve<P>);
+export default function LoadableComponent<P extends object>(options: LoadableComponentOptions<P>): React.ComponentType<P> {
+  const LazyComponent = React.lazy(options.loader);
+  const Component = LazyComponent as unknown as React.ComponentType<P>;
+
+  return (props: P) => (
+    <React.Suspense fallback={<ComponentLoader isLoading pastDelay />}>
+      <Component {...props} />
+    </React.Suspense>
+  );
 }

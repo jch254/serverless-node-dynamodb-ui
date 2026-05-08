@@ -1,4 +1,4 @@
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 import * as React from 'react';
 import Textarea from 'react-expanding-textarea';
 import Icon from 'react-geomicons';
@@ -13,7 +13,7 @@ interface ItemCreatorProps {
   onCreateItem: (text: string) => void;
 }
 
-const ItemCreator: React.StatelessComponent<ItemCreatorProps> = ({
+const ItemCreator: React.FC<ItemCreatorProps> = ({
   itemName,
   onChangeItem,
   onCreateItem,

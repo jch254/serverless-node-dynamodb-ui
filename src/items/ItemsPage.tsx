@@ -77,7 +77,7 @@ class ItemsPage extends React.PureComponent<StateProps & DispatchProps, ItemsPag
   }
 }
 
-const mapStateToProps = (state: GlobalState, ownProps: {}): StateProps => ({
+const mapStateToProps = (state: GlobalState): StateProps => ({
   isFetching: getIsFetching(state),
   items: getSortedItems(state),
   error: getError(state),

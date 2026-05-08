@@ -38,7 +38,7 @@ class RestrictedPage extends React.PureComponent<RestrictedPageProps & StateProp
   }
 }
 
-const mapStateToProps = (state: GlobalState, ownProps: RestrictedPageProps): StateProps => ({
+const mapStateToProps = (state: GlobalState): StateProps => ({
   idToken: getIdToken(state),
 });
 

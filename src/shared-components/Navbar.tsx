@@ -25,11 +25,13 @@ const activeStyle = {
   color: 'rgb(136, 136, 136)',
 };
 
-const Navbar: React.StatelessComponent<NavbarProps> = ({ isLoggedIn, onLogin, onLogout }) => (
+const getNavStyle = ({ isActive }: { isActive: boolean }) => isActive ? activeStyle : navStyle;
+
+const Navbar: React.FC<NavbarProps> = ({ isLoggedIn, onLogin, onLogout }) => (
   <Toolbar backgroundColor="white" mt={1} mb={2}>
     <Space auto />
     <NavItem is="object">
-      <NavLink to="/" exact style={navStyle} activeStyle={activeStyle} title="Home">
+      <NavLink to="/" end style={getNavStyle} title="Home">
         <Icon
           name="home"
           width="32px"
@@ -42,7 +44,7 @@ const Navbar: React.StatelessComponent<NavbarProps> = ({ isLoggedIn, onLogin, on
     {
       isLoggedIn &&
       <NavItem is="object">
-        <NavLink to="/items" style={navStyle} activeStyle={activeStyle} title="Your Items/Tings">
+        <NavLink to="/items" style={getNavStyle} title="Your Items/Tings">
           <Icon
             name="list"
             width="32px"
@@ -54,7 +56,7 @@ const Navbar: React.StatelessComponent<NavbarProps> = ({ isLoggedIn, onLogin, on
     }
     { isLoggedIn && <Space auto /> }
     <NavItem is="object">
-      <NavLink to="/about" style={navStyle} activeStyle={activeStyle} title="About">
+      <NavLink to="/about" style={getNavStyle} title="About">
         <Icon
           name="info"
           width="32px"

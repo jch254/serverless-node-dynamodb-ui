@@ -5,6 +5,7 @@ import {
   deleteItem,
   fetchItems,
   handleApiError,
+  ResponseError,
 } from '../apiService';
 
 import Item, { ItemArgs } from './Item';
@@ -29,7 +30,7 @@ export function* fetchItemsSaga(idToken: string) {
 
     yield put(fetchItemsSuccess(items));
   } catch (error) {
-    yield call(handleApiError, error, fetchItemsError);
+    yield* handleApiError(error as ResponseError, fetchItemsError);
   }
 }
 
@@ -47,7 +48,7 @@ export function* createItemSaga(idToken: string, newItem: Partial<ItemArgs>) {
 
     yield put(createItemSuccess(item));
   } catch (error) {
-    yield call(handleApiError, error, createItemError);
+    yield* handleApiError(error as ResponseError, createItemError);
   }
 }
 
@@ -65,7 +66,7 @@ export function* deleteItemSaga(idToken: string, itemId: string) {
 
     yield put(deleteItemSuccess());
   } catch (error) {
-    yield call(handleApiError, error, deleteItemError);
+    yield* handleApiError(error as ResponseError, deleteItemError);
   }
 }
 

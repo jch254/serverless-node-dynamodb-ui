@@ -1,5 +1,4 @@
-import { routerReducer, RouterState } from 'react-router-redux';
-import { combineReducers } from 'redux';
+import { combineReducers, Reducer } from 'redux';
 import recycleState from 'redux-recycle';
 
 import authReducer, { AuthState, LOGOUT } from './auth/reducer';
@@ -8,11 +7,9 @@ import itemsReducer, { initialState as itemsInitialsState, ItemsState } from './
 export interface GlobalState {
   auth: AuthState;
   items: ItemsState;
-  router: RouterState;
 }
 
-export default combineReducers<GlobalState>({
+export default combineReducers({
   auth: authReducer,
   items: recycleState(itemsReducer, [LOGOUT], itemsInitialsState),
-  router: routerReducer,
-});
+}) as unknown as Reducer<GlobalState>;

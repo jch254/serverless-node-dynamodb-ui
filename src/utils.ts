@@ -18,7 +18,7 @@ export const removeStoredAuthState = (): void => {
 export const getStoredAuthState = (): Partial<AuthState> => {
   try {
     return JSON.parse(localStorage.getItem(AUTH) || '{}');
-  } catch (err) {
+  } catch {
     removeStoredAuthState();
 
     return {};

@@ -13,6 +13,6 @@ const getItems = (state: GlobalState): Map<string, Item> => state.items.items;
 export const getSortedItems = createSelector(
   [getItems],
   items => new Map<string, Item>(
-    [...items].sort(([idA, ItemA], [idB, ItemB]) => ItemB.createdUtc.diff(ItemA.createdUtc)),
+    [...items].sort(([, ItemA], [, ItemB]) => ItemB.createdUtc.diff(ItemA.createdUtc)),
   ),
 );

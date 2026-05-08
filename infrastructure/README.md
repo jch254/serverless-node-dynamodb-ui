@@ -1,12 +1,12 @@
 # Deployment/Infrastructure
 
-This project is built, tested and deployed to AWS CodeBuild. Artifacts are served from S3. CloudFront is used as a CDN. Route 53 is used for DNS.
+This project is built, tested and deployed by AWS CodeBuild. Artifacts are served from a private S3 bucket through CloudFront. Cloudflare is used for DNS.
 
 ---
 
 ### Deployment Prerequisites
 
-**All commands below must be run in the /infrastructure directory.**
+**All commands below must be run from the repository root. Terraform lives in `/infrastructure/terraform`.**
 
 To deploy to AWS, you must:
 
@@ -19,8 +19,8 @@ To deploy to AWS, you must:
 
 #### Deploying infrastructure
 
-1. Update and export all environment variables specified in the appropriate buildspec declaration (check all phases) and bash scripts
-1. Initialise Terraform:
+1. Export `AWS_DEFAULT_REGION`, `REMOTE_STATE_BUCKET`, `TF_STATE_KEY`, and `CLOUDFLARE_API_TOKEN`.
+1. Initialise Terraform from `infrastructure/terraform`:
 ```
 terraform init \
   -backend-config 'bucket=YOUR_S3_BUCKET' \
@@ -34,9 +34,9 @@ terraform init \
 
 #### Updating infrastructure
 
-1. Update and export all environment variables specified in the appropriate buildspec declaration (check all phases) and bash scripts
+1. Export `AWS_DEFAULT_REGION`, `REMOTE_STATE_BUCKET`, `TF_STATE_KEY`, and `CLOUDFLARE_API_TOKEN`.
 1. Make necessary infrastructure code changes.
-1. Initialise Terraform:
+1. Initialise Terraform from `infrastructure/terraform`:
 ```
 terraform init \
   -backend-config 'bucket=YOUR_S3_BUCKET' \
@@ -50,8 +50,8 @@ terraform init \
 
 #### Destroying infrastructure (use with care)
 
-1. Update and export all environment variables specified in the appropriate buildspec declaration (check all phases) and bash scripts
-1. Initialise Terraform:
+1. Export `AWS_DEFAULT_REGION`, `REMOTE_STATE_BUCKET`, `TF_STATE_KEY`, and `CLOUDFLARE_API_TOKEN`.
+1. Initialise Terraform from `infrastructure/terraform`:
 ```
 terraform init \
   -backend-config 'bucket=YOUR_S3_BUCKET' \
