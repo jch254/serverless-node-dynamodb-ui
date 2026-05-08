@@ -1,7 +1,8 @@
+import { Auth0Client } from '@auth0/auth0-spa-js';
 import { Action } from 'redux';
-import { put } from 'redux-saga/effects';
+import { put, select } from 'redux-saga/effects';
 
-import { loginRequest } from './auth/reducer';
+import { getAuth0Client } from './auth/selectors';
 import Item, { ItemArgs } from './items/Item';
 
 const baseUri = process.env.API_BASE_URI;
@@ -33,53 +34,41 @@ export async function handleFetchErrorResponse(response: Response): Promise<void
 }
 
 export async function fetchItems(idToken: string): Promise<Map<string, Item>> {
-  try {
-    const response = await fetch(`${baseUri}/items`, getFetchInit('GET', idToken));
+  const response = await fetch(`${baseUri}/items`, getFetchInit('GET', idToken));
 
-    if (response.ok) {
-      const json = await response.json();
+  if (response.ok) {
+    const json = await response.json();
 
-      return new Map<string, Item>(json.items.map((item: ItemArgs) => [item.id, new Item(item)]));
-    }
-
-    await handleFetchErrorResponse(response);
-
-    return new Map<string, Item>();
-  } catch (err) {
-    throw err;
+    return new Map<string, Item>(json.items.map((item: ItemArgs) => [item.id, new Item(item)]));
   }
+
+  await handleFetchErrorResponse(response);
+
+  return new Map<string, Item>();
 }
 
 export async function createItem(idToken: string, item: Partial<ItemArgs>): Promise<Item> {
-  try {
-    const response = await fetch(`${baseUri}/items`, getFetchInit('POST', idToken, item));
+  const response = await fetch(`${baseUri}/items`, getFetchInit('POST', idToken, item));
 
-    if (response.status === 201) {
-      const json = await response.json();
+  if (response.status === 201) {
+    const json = await response.json();
 
-      return new Item(json);
-    }
-
-    await handleFetchErrorResponse(response);
-
-    return new Item();
-  } catch (err) {
-    throw err;
+    return new Item(json);
   }
+
+  await handleFetchErrorResponse(response);
+
+  return new Item();
 }
 
 export async function deleteItem(idToken: string, itemId: string): Promise<void> {
-  try {
-    const response = await fetch(`${baseUri}/items/${itemId}`, getFetchInit('DELETE', idToken));
+  const response = await fetch(`${baseUri}/items/${itemId}`, getFetchInit('DELETE', idToken));
 
-    if (response.ok) {
-      return;
-    }
-
-    await handleFetchErrorResponse(response);
-  } catch (err) {
-    throw err;
+  if (response.ok) {
+    return;
   }
+
+  await handleFetchErrorResponse(response);
 }
 
 export interface ResponseError extends Error {
@@ -91,9 +80,14 @@ export function* handleApiError(error: ResponseError, failureAction: (error: Res
 
   if (response !== undefined) {
     if (response.status === 401) {
-      // Unauthorised - show login
       yield put(failureAction(error));
-      yield put(loginRequest());
+
+      const auth0Client: Auth0Client | undefined = yield select(getAuth0Client);
+      const path = window.location.pathname;
+
+      if (auth0Client) {
+        auth0Client.loginWithRedirect({ appState: { targetUrl: path } });
+      }
     }
   } else {
     yield put(failureAction(error));

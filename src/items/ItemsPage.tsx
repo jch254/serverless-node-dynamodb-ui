@@ -7,7 +7,7 @@ import {
 import { bindActionCreators, Dispatch } from 'redux';
 import { Flex } from 'reflexbox';
 
-import { getIdToken } from '../auth/selectors';
+import { useAuth0 } from '../auth/Auth0Wrapper';
 import FullscreenLoader from '../shared-components/FullscreenLoader';
 
 import { ResponseError } from '../apiService';
@@ -22,7 +22,6 @@ interface StateProps {
   isFetching: boolean;
   items: Map<string, Item>;
   error?: ResponseError;
-  idToken: string;
 }
 
 interface DispatchProps {
@@ -33,55 +32,55 @@ interface DispatchProps {
   };
 }
 
-interface ItemsPageState {
-  newItemName: string;
-}
+const ItemsPage: React.FC<StateProps & DispatchProps> = ({ actions, isFetching, items }) => {
+  const { getIdTokenClaims } = useAuth0();
+  const [newItemName, setNewItemName] = React.useState('');
+  const [idToken, setIdToken] = React.useState<string | undefined>();
 
-class ItemsPage extends React.PureComponent<StateProps & DispatchProps, ItemsPageState> {
-  constructor(props: StateProps & DispatchProps) {
-    super(props);
+  React.useEffect(
+    () => {
+      const requestItems = async () => {
+        const claims = await getIdTokenClaims();
 
-    this.state = {
-      newItemName: '',
-    };
+        if (claims?.__raw) {
+          setIdToken(claims.__raw);
+          actions.fetchItems(claims.__raw);
+        }
+      };
+
+      requestItems();
+    },
+    [],
+  );
+
+  if (isFetching || !idToken) {
+    return <FullscreenLoader />;
   }
 
-  componentDidMount() {
-    const { actions, idToken } = this.props;
-
-    actions.fetchItems(idToken);
-  }
-
-  render() {
-    const { actions, idToken, isFetching, items } = this.props;
-    const { newItemName } = this.state;
-
-    return isFetching ?
-      <FullscreenLoader /> :
-      <Flex style={{ flex: '1 0 auto' }}>
-        <Container style={{ width: '100%' }} pt={3} pb={3}>
-          <Heading mb={2} level={3} big>
-            Your Items/Tings
-          </Heading>
-          <ItemCreator
-            itemName={newItemName}
-            onChangeItem={(itemName: string) => this.setState({ newItemName: itemName })}
-            onCreateItem={(itemName: string) => {
-              actions.createItem(idToken, { name: itemName });
-              this.setState({ newItemName: '' });
-            }}
-          />
-          <ItemsList items={items} onDeleteItem={(itemId: string) => actions.deleteItem(idToken, itemId)}/>
-        </Container>
-      </Flex>;
-  }
-}
+  return (
+    <Flex style={{ flex: '1 0 auto' }}>
+      <Container style={{ width: '100%' }} pt={3} pb={3}>
+        <Heading mb={2} level={3} big>
+          Your Items/Tings
+        </Heading>
+        <ItemCreator
+          itemName={newItemName}
+          onChangeItem={(itemName: string) => setNewItemName(itemName)}
+          onCreateItem={(itemName: string) => {
+            actions.createItem(idToken, { name: itemName });
+            setNewItemName('');
+          }}
+        />
+        <ItemsList items={items} onDeleteItem={(itemId: string) => actions.deleteItem(idToken, itemId)} />
+      </Container>
+    </Flex>
+  );
+};
 
 const mapStateToProps = (state: GlobalState): StateProps => ({
   isFetching: getIsFetching(state),
   items: getSortedItems(state),
   error: getError(state),
-  idToken: getIdToken(state) as string,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<any>): DispatchProps => ({

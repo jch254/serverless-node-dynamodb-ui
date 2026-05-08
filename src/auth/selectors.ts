@@ -1,7 +1,4 @@
+import { Auth0Client } from '@auth0/auth0-spa-js';
 import { GlobalState } from '../rootReducer';
 
-export const getError = (state: GlobalState): string | undefined => state.auth.error;
-
-export const getIdToken = (state: GlobalState): string | undefined => state.auth.idToken;
-
-export const getIsLoggedIn = (state: GlobalState): boolean => state.auth.profile !== undefined;
+export const getAuth0Client = (state: GlobalState): Auth0Client | undefined => state.auth.auth0Client;

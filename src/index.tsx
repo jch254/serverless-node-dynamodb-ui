@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
 import App from './app/App';
+import { Auth0Provider } from './auth/Auth0Wrapper';
 import { configureStore } from './configureStore';
 
 require('./index.css');
@@ -41,7 +42,13 @@ const root = createRoot(container!);
 root.render(
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <Auth0Provider
+        domain={process.env.AUTH0_DOMAIN as string}
+        client_id={process.env.AUTH0_CLIENT_ID as string}
+        redirect_uri={window.location.origin}
+      >
+        <App />
+      </Auth0Provider>
     </BrowserRouter>
   </Provider>,
 );

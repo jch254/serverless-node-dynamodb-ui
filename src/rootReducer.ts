@@ -1,8 +1,7 @@
 import { combineReducers, Reducer } from 'redux';
-import recycleState from 'redux-recycle';
 
-import authReducer, { AuthState, LOGOUT } from './auth/reducer';
-import itemsReducer, { initialState as itemsInitialsState, ItemsState } from './items/reducer';
+import authReducer, { AuthState } from './auth/reducer';
+import itemsReducer, { ItemsState } from './items/reducer';
 
 export interface GlobalState {
   auth: AuthState;
@@ -11,5 +10,5 @@ export interface GlobalState {
 
 export default combineReducers({
   auth: authReducer,
-  items: recycleState(itemsReducer, [LOGOUT], itemsInitialsState),
+  items: itemsReducer,
 }) as unknown as Reducer<GlobalState>;

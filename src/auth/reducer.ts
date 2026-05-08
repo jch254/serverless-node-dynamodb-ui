@@ -1,100 +1,38 @@
+import { Auth0Client } from '@auth0/auth0-spa-js';
 import iassign from 'immutable-assign';
 
-import { getStoredAuthState } from '../utils';
+export const SET_AUTH0_CLIENT = 'SET_AUTH0_CLIENT';
 
-export const LOGIN_REQUEST = 'LOGIN_REQUEST';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAILURE = 'LOGIN_FAILURE';
-export const LOGOUT = 'LOGOUT';
-
-export interface LoginRequest {
-  type: 'LOGIN_REQUEST';
+export interface SetAuth0Client {
+  type: 'SET_AUTH0_CLIENT';
+  auth0Client: Auth0Client;
 }
 
-export interface LoginSuccess {
-  type: 'LOGIN_SUCCESS';
-  profile: auth0.Auth0UserProfile;
-  idToken: string;
-}
-
-export interface LoginFailure {
-  type: 'LOGIN_FAILURE';
-  error: string;
-}
-
-export interface Logout {
-  type: 'LOGOUT';
-}
-
-type AuthAction = LoginRequest | LoginSuccess | LoginFailure | Logout;
+type AuthAction = SetAuth0Client;
 
 export interface AuthState {
-  isLoggingIn: boolean;
-  idToken?: string;
-  profile?: auth0.Auth0UserProfile;
-  error?: string;
+  auth0Client?: Auth0Client;
 }
 
-export const initialState: AuthState = {
-  isLoggingIn: false,
-};
+export const initialState: AuthState = {};
 
-export default function reducer(
-  state: AuthState = { ...initialState, ...getStoredAuthState() },
-  action: AuthAction,
-): AuthState {
+export default function reducer(state: AuthState = initialState, action: AuthAction): AuthState {
   switch (action.type) {
-    case LOGIN_REQUEST:
-      return iassign(
-        state,
-        state => state.isLoggingIn,
-        () => true,
-      );
-    case LOGIN_SUCCESS:
+    case SET_AUTH0_CLIENT:
       return iassign(
         state,
         (s) => {
-          s.isLoggingIn = false;
-          s.idToken = action.idToken;
-          s.profile = action.profile;
+          s.auth0Client = action.auth0Client;
 
           return s;
         },
       );
-    case LOGIN_FAILURE:
-      return iassign(
-        state,
-        (s) => {
-          s.isLoggingIn = false;
-          s.idToken = undefined;
-          s.profile = undefined;
-          s.error = action.error;
-
-          return s;
-        },
-      );
-    case LOGOUT:
-      return initialState;
     default:
       return state;
   }
 }
 
-export const loginRequest = (): LoginRequest => ({
-  type: LOGIN_REQUEST,
-});
-
-export const loginSuccess = (profile: auth0.Auth0UserProfile, idToken: string): LoginSuccess => ({
-  type: LOGIN_SUCCESS,
-  profile,
-  idToken,
-});
-
-export const loginFailure = (error: string): LoginFailure => ({
-  type: LOGIN_FAILURE,
-  error,
-});
-
-export const logout = (): Logout => ({
-  type: LOGOUT,
+export const setAuth0Client = (auth0Client: Auth0Client): SetAuth0Client => ({
+  type: SET_AUTH0_CLIENT,
+  auth0Client,
 });

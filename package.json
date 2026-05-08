@@ -22,7 +22,7 @@
   },
   "author": "Jordan Hornblow <jordan@jch254.com>",
   "dependencies": {
-    "auth0-lock": "^14.3.0",
+    "@auth0/auth0-spa-js": "^1.10.0",
     "classnames": "^2.5.1",
     "immutable-assign": "^2.1.5",
     "isomorphic-fetch": "^3.0.0",
@@ -36,7 +36,6 @@
     "react-router": "^6.30.3",
     "react-router-dom": "^6.30.3",
     "redux": "^5.0.1",
-    "redux-recycle": "^1.4.0",
     "redux-saga": "^1.4.2",
     "reselect": "^5.1.1",
     "scheduler": "^0.26.0",
@@ -46,11 +45,9 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@redux-devtools/extension": "^4.0.0",
-    "@types/auth0-lock": "^11.27.9",
     "@types/node": "^22.19.18",
     "@types/react": "^18.3.28",
     "@types/react-dom": "^18.3.7",
-    "@types/redux-recycle": "^1.2.2",
     "@types/webpack": "^5.28.5",
     "@types/webpack-env": "^1.18.8",
     "cross-env": "^10.1.0",
