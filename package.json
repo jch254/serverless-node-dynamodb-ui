@@ -33,7 +33,7 @@
     "react-ga": "^3.3.1",
     "react-loading": "^2.0.3",
     "react-redux": "^9.2.0",
-    "react-router": "^6.30.3",
+    "react-router": "^6.30.4",
     "react-router-dom": "^6.30.3",
     "redux": "^5.0.1",
     "redux-saga": "^1.4.2",
