@@ -10,8 +10,8 @@ const AppFooter: React.FC<{}> = () => (
   <Toolbar backgroundColor="white">
     <Space auto />
     <NavItem style={{ fontWeight: 'normal', fontSize: '12px' }}>
-      <a href="https://603.nz" style={{ cursor: 'pointer', color: 'black' }}>
-        {`© 603.nz ${moment().year()}`}
+      <a href="https://jch254.com" style={{ cursor: 'pointer', color: 'black' }}>
+        {`© Jordan Hornblow ${moment().year()}`}
       </a>
     </NavItem>
   </Toolbar>
