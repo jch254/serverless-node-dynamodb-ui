@@ -42,8 +42,8 @@ importers:
         specifier: ^9.2.0
         version: 9.2.0(@types/react@18.3.28)(react@18.3.1)(redux@5.0.1)
       react-router:
-        specifier: ^6.30.3
-        version: 6.30.3(react@18.3.1)
+        specifier: ^8.3.0
+        version: 8.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-router-dom:
         specifier: ^6.30.3
         version: 6.30.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -968,6 +968,9 @@ packages:
   content-type@1.0.5:
     resolution: {integrity: sha512-nTjqfcBFEipKdXCv4YDQWCfmcLZKm81ldF0pAopTvyrFGVbcR6P/VAAd5G7N+0tTr8QqiU0tFadD6FK4NtJwOA==}
     engines: {node: '>= 0.6'}
+
+  cookie-es@3.1.1:
+    resolution: {integrity: sha512-UaXxwISYJPTr9hwQxMFYZ7kNhSXboMXP+Z3TRX6f1/NyaGPfuNUZOWP1pUEb75B2HjfklIYLVRfWiFZJyC6Npg==}
 
   cookie-signature@1.0.7:
     resolution: {integrity: sha512-NXdYc3dLr47pBkpUCHtKSwIOQXLVn8dZEuywboCOJY/osA0wFSLlSawr3KN8qXJEyX66FcONTH8EIlVuK0yyFA==}
@@ -2367,6 +2370,16 @@ packages:
     engines: {node: '>=14.0.0'}
     peerDependencies:
       react: '>=16.8'
+
+  react-router@8.3.0:
+    resolution: {integrity: sha512-qyPMvW83jGIct3yiieisxdk9M745anqhpIMKN5m1t6yBMfgVPpt77aHOqs5fUlEJRMCGffg9BaQLH9oPVOL7xQ==}
+    engines: {node: '>=22.22.0'}
+    peerDependencies:
+      react: '>=19.2.7'
+      react-dom: '>=19.2.7'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
 
   react-with-forwarded-ref@0.3.5:
     resolution: {integrity: sha512-BJK4q0Nvqg4AFwc+LV+PZZb2nxS1ZqQlS9hY14TdIyg7Lapzirk/V/TtbYjPFSsm/fGm0wC4tsgI1IDhxSVVSQ==}
@@ -3908,6 +3921,8 @@ snapshots:
 
   content-type@1.0.5: {}
 
+  cookie-es@3.1.1: {}
+
   cookie-signature@1.0.7: {}
 
   cookie@0.7.2: {}
@@ -5278,6 +5293,13 @@ snapshots:
     dependencies:
       '@remix-run/router': 1.23.2
       react: 18.3.1
+
+  react-router@8.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      cookie-es: 3.1.1
+      react: 18.3.1
+    optionalDependencies:
+      react-dom: 18.3.1(react@18.3.1)
 
   react-with-forwarded-ref@0.3.5(react@18.3.1):
     dependencies:
